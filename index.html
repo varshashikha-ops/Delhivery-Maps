@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background:#000">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=18">
+  <link rel="stylesheet" href="css/styles.css?v=29">
 
   <noscript>
     <style>
@@ -60,12 +60,16 @@
         <a href="developer.html" class="header__nav-link">Developer</a>
         <a href="support.html" class="header__nav-link">Support</a>
       </nav>
-      <a href="#" class="header__signin">Sign in</a>
+      <a href="signin.html" class="header__signin">Sign in</a>
     </div>
   </header>
 
   <section id="hero" class="hero">
     <div class="hero__bg">
+      <div class="hero__map-bg" id="mapReveal">
+        <img src="assets/hero-map-bg.jpg" alt="" aria-hidden="true" class="hero__map-img">
+        <img src="assets/hero-map-bg.jpg" alt="" aria-hidden="true" class="hero__map-img hero__map-img--bright" id="mapBright">
+      </div>
       <div class="hero__mesh"></div>
       <div class="hero__dots"></div>
     </div>
@@ -102,7 +106,7 @@
         <span class="trusted__logo">Loops</span>
         <span class="trusted__logo">MessageBird</span>
         <span class="trusted__logo">Zapier</span>
-        <span class="trusted__logo">TED</span>
+        <span class="trusted__logo">Zepto</span>
         <span class="trusted__logo">Dropbox</span>
         <span class="trusted__logo">Discord</span>
         <span class="trusted__logo">Upwork</span>
@@ -113,7 +117,7 @@
         <span class="trusted__logo">Loops</span>
         <span class="trusted__logo">MessageBird</span>
         <span class="trusted__logo">Zapier</span>
-        <span class="trusted__logo">TED</span>
+        <span class="trusted__logo">Zepto</span>
         <span class="trusted__logo">Dropbox</span>
         <span class="trusted__logo">Discord</span>
         <span class="trusted__logo">Upwork</span>
@@ -161,7 +165,7 @@
       </div>
       <h2 class="committed__headline">Committed to Reaching<br>Every Address</h2>
       <p class="committed__subtext">Powering India's logistics backbone with precision mapping, real-time intelligence, and nationwide coverage.</p>
-      <div class="committed__stats">
+      <div class="committed__stats reveal">
         <article class="committed__stat">
           <div class="committed__stat-icon">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
@@ -214,82 +218,138 @@
       <h2 class="section-title">Built on 15 Years of Intelligence</h2>
       <div class="showcase__grid">
         <!-- Card 1: Routing API -->
-        <div class="sc-card sc-card--4col">
-          <div class="sc-card__mock">
-            <div class="sc-card__icons">
-              <div class="sc-card__icon-item"><div class="sc-card__icon-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M8 12L5 9C3.9 7.9 3.9 6.1 5 5C6.1 3.9 7.9 3.9 9 5L14 10C15.1 11.1 15.1 12.9 14 14C12.9 15.1 11.1 15.1 10 14" stroke="rgba(255,255,255,0.5)" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></div><span>Link</span></div>
-              <div class="sc-card__icon-item"><div class="sc-card__icon-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3V17" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round"/><path d="M5 3H12C13.7 3 15 4.3 15 6C15 7.7 13.7 9 12 9H5M5 9H13C14.7 9 16 10.3 16 12C16 13.7 14.7 15 13 15H5" stroke="rgba(255,255,255,0.5)" stroke-width="1.4" fill="none"/></svg></div><span>Text</span></div>
-              <div class="sc-card__icon-item"><div class="sc-card__icon-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 1H12L16 5V19H4V1Z" stroke="rgba(255,255,255,0.5)" stroke-width="1.4" fill="none"/><path d="M12 1V5H16" stroke="rgba(255,255,255,0.5)" stroke-width="1.4" fill="none"/></svg></div><span>File</span></div>
+        <div class="sc-card sc-card--4col sc-card--flip" tabindex="0" aria-expanded="false">
+          <div class="sc-card__inner">
+            <div class="sc-card__front">
+              <div class="sc-card__mock sc-mock--mapimg">
+                <img src="assets/routing-preview.png" alt="Routing API preview showing optimized routes between two points on a map" class="sc-mock__img" loading="lazy">
+              </div>
+              <h3 class="sc-card__title">Routing API</h3>
+              <p class="sc-card__desc">Routes that know India's traffic patterns, delivery hotspots, and predictive ETAs built from real journeys. Generate optimized paths with predictive ETAs and logistics-grade precision built from real journeys.</p>
             </div>
-            <div class="sc-card__hint">You can start chatting with the upload file us-<br>ai-institute-generate...</div>
-            <div class="sc-card__input-row">
-              <div class="sc-card__input-pill">Summarise this doc</div>
-              <button class="sc-card__send-btn" type="button" aria-label="Send"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L4 6M7 3L10 6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="sc-card__back">
+              <h4 class="sc-card__back-title">Benefits</h4>
+              <ul class="sc-card__back-list">
+                <li>Multi-stop routing</li>
+                <li>Multimodal transit planning (Truck, Car, Bike)</li>
+                <li>Precise ETAs</li>
+                <li>Scalable matrix dimensions</li>
+              </ul>
+              <h4 class="sc-card__back-title sc-card__back-title--section">Use Cases</h4>
+              <ul class="sc-card__back-list">
+                <li>Delivery navigation</li>
+                <li>Fleet routing</li>
+                <li>Rerouting on deviation</li>
+                <li>Last-mile optimization</li>
+              </ul>
             </div>
           </div>
-          <h3 class="sc-card__title">Routing API</h3>
-          <p class="sc-card__desc">Optimized paths built from India's real traffic patterns and delivery hotspots. Predictive ETAs with logistics-grade precision.</p>
         </div>
         <!-- Card 2: Geocoding & Address Intelligence -->
-        <div class="sc-card sc-card--4col">
-          <div class="sc-card__mock">
-            <div class="sc-priv__bars"><div class="sc-priv__bar" style="width:55%"></div><div class="sc-priv__bar" style="width:80%"></div><div class="sc-priv__bar" style="width:40%"></div><div class="sc-priv__bar" style="width:65%"></div></div>
-            <div class="sc-priv__badge"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4V8C2 12 4.9 15 8 16C11.1 15 14 12 14 8V4L8 1Z" fill="rgba(255,77,109,0.12)" stroke="rgba(255,77,109,0.4)" stroke-width="0.8"/><polyline points="5,8 7,10 11,6" stroke="#FF4D6D" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>All DATA SECURE</span></div>
+        <div class="sc-card sc-card--4col sc-card--flip" tabindex="0" aria-expanded="false">
+          <div class="sc-card__inner">
+            <div class="sc-card__front">
+              <div class="sc-card__mock sc-mock--mapimg">
+                <img src="assets/geocoding-preview.png" alt="Geocoding Intelligence preview showing address resolution on a map" class="sc-mock__img" loading="lazy">
+              </div>
+              <h3 class="sc-card__title">Geocoding Intelligence</h3>
+              <p class="sc-card__desc">Convert addresses to coordinates and back with 98%+ accuracy. The core data layer for navigation, tracking and operations.</p>
+            </div>
+            <div class="sc-card__back">
+              <h4 class="sc-card__back-title">Benefits</h4>
+              <ul class="sc-card__back-list">
+                <li>Continuous updates as delivery coverage expands</li>
+                <li>Address-level functional precision</li>
+              </ul>
+              <h4 class="sc-card__back-title sc-card__back-title--section">Use Cases</h4>
+              <ul class="sc-card__back-list">
+                <li>Address validation</li>
+                <li>Address autofill at checkout</li>
+                <li>Order routing</li>
+                <li>Pin-dropped delivery locations</li>
+                <li>Current address detection</li>
+                <li>Geo-fencing checks</li>
+              </ul>
+            </div>
           </div>
-          <h3 class="sc-card__title">Geocoding Intelligence</h3>
-          <p class="sc-card__desc">Convert addresses to coordinates and back with 98%+ accuracy. The core data layer for navigation, tracking and operations.</p>
         </div>
         <!-- Card 3: Autosuggest API -->
-        <div class="sc-card sc-card--4col">
-          <div class="sc-card__mock">
-            <div class="sc-suggest__search">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/><path d="M9.5 9.5L13 13" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <span>Koramang</span><span class="sc-suggest__cursor">|</span>
+        <div class="sc-card sc-card--4col sc-card--flip" tabindex="0" aria-expanded="false">
+          <div class="sc-card__inner">
+            <div class="sc-card__front">
+              <div class="sc-card__mock sc-mock--mapimg">
+                <img src="assets/autosuggest-preview.png?v=2" alt="Autosuggest API preview showing real-time location suggestions" class="sc-mock__img" loading="lazy">
+              </div>
+              <h3 class="sc-card__title">Autosuggest API</h3>
+              <p class="sc-card__desc">Predict user intent with every keystroke. The Autosuggest API provides real-time, context-aware location results, helping users find the right destination before they even finish typing.</p>
             </div>
-            <div class="sc-suggest__results">
-              <div class="sc-suggest__item sc-suggest__item--active"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1C4 1 2.5 2.5 2.5 4.5C2.5 7.5 6 11 6 11S9.5 7.5 9.5 4.5C9.5 2.5 8 1 6 1Z" stroke="rgba(255,77,109,0.5)" stroke-width="0.8" fill="none"/></svg><span>Koramangala, Bengaluru</span></div>
-              <div class="sc-suggest__item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1C4 1 2.5 2.5 2.5 4.5C2.5 7.5 6 11 6 11S9.5 7.5 9.5 4.5C9.5 2.5 8 1 6 1Z" stroke="rgba(255,255,255,0.25)" stroke-width="0.8" fill="none"/></svg><span>Koramangala 4th Block</span></div>
-              <div class="sc-suggest__item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1C4 1 2.5 2.5 2.5 4.5C2.5 7.5 6 11 6 11S9.5 7.5 9.5 4.5C9.5 2.5 8 1 6 1Z" stroke="rgba(255,255,255,0.25)" stroke-width="0.8" fill="none"/></svg><span>Koramangala BDA Complex</span></div>
+            <div class="sc-card__back">
+              <h4 class="sc-card__back-title">Benefits</h4>
+              <ul class="sc-card__back-list">
+                <li>Enhanced user experience</li>
+                <li>Reduced zero-result errors</li>
+                <li>Improved data integrity with fewer typos and standardized inputs</li>
+                <li>Reduced form friction</li>
+              </ul>
+              <h4 class="sc-card__back-title sc-card__back-title--section">Use Cases</h4>
+              <ul class="sc-card__back-list">
+                <li>Rider apps</li>
+                <li>Checkout forms</li>
+                <li>Internal ops tools</li>
+              </ul>
             </div>
-            <div class="sc-suggest__meta">⚡ 3 results · 12ms</div>
           </div>
-          <h3 class="sc-card__title">Autosuggest API</h3>
-          <p class="sc-card__desc">Real-time, context-aware location suggestions that predict user intent with every keystroke typed.</p>
         </div>
         <!-- Card 4: Map Tiles (wide) -->
-        <div class="sc-card sc-card--6col">
-          <div class="sc-card__mock sc-lang__mock">
-            <div class="sc-lang__avatars"><span class="sc-lang__av sc-lang__av--a">👩‍🦳</span><span class="sc-lang__av sc-lang__av--b">🤖</span><span class="sc-lang__av sc-lang__av--c">🧑‍💼</span></div>
-            <div class="sc-card__input-row"><div class="sc-lang__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 2H13M4 2V1M7 2C7 2 5 6 2 8M10 11L7 6M7 6L4 11M4.5 10H9.5" stroke="rgba(255,255,255,0.35)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-card__input-pill">We have over 30 languages</div><button class="sc-card__send-btn" type="button" aria-label="Send"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L4 6M7 3L10 6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-            <div class="sc-lang__flags">🇺🇸 🇫🇷 🇯🇵 🇩🇪 🇪🇸 🇧🇷</div>
+        <div class="sc-card sc-card--6col sc-card--flip" tabindex="0" aria-expanded="false">
+          <div class="sc-card__inner">
+            <div class="sc-card__front">
+              <div class="sc-card__mock sc-mock--mapimg">
+                <img src="assets/map-tiles-preview.svg" alt="Map tiles preview showing Bengaluru streets with POI markers and landmarks" class="sc-mock__img" loading="lazy">
+              </div>
+              <h3 class="sc-card__title">Map Tiles</h3>
+              <p class="sc-card__desc">Build better maps, faster. Custom styling and seamless cross-platform deployment help transform raw coordinates into interactive mapping experiences for navigation, visualization and logistics workflows.</p>
+            </div>
+            <div class="sc-card__back">
+              <h4 class="sc-card__back-title">Benefits</h4>
+              <ul class="sc-card__back-list">
+                <li>Cross-platform consistency</li>
+                <li>Custom/dynamic styling at runtime</li>
+                <li>Interactivity and event handling</li>
+              </ul>
+              <h4 class="sc-card__back-title sc-card__back-title--section">Use Cases</h4>
+              <ul class="sc-card__back-list">
+                <li>Navigation base map</li>
+                <li>Route rendering</li>
+                <li>Geo-fencing</li>
+                <li>Logistics dashboards</li>
+              </ul>
+            </div>
           </div>
-          <h3 class="sc-card__title">Map Tiles</h3>
-          <p class="sc-card__desc">Custom-styled, cross-platform map tiles that transform raw coordinates into interactive navigation experiences.</p>
         </div>
         <!-- Card 5: Search API (wide) -->
-        <div class="sc-card sc-card--6col">
-          <div class="sc-card__mock sc-search__mock">
-            <div class="sc-search__bar">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/><path d="M9.5 9.5L13 13" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <span>cafes in Koramangala</span>
+        <div class="sc-card sc-card--6col sc-card--flip" tabindex="0" aria-expanded="false">
+          <div class="sc-card__inner">
+            <div class="sc-card__front">
+              <div class="sc-card__mock sc-mock--mapimg">
+                <img src="assets/search-preview.png" alt="Search API preview showing location search results" class="sc-mock__img" loading="lazy">
+              </div>
+              <h3 class="sc-card__title">Search API</h3>
+              <p class="sc-card__desc">Turn free-form queries into precise location results with semantic intent analysis. The API understands whether users are searching for an address or a place category, (e.g., "123 Hosur Rd" vs. "cafes in Koramangala") to deliver relevant results instantly.</p>
             </div>
-            <div class="sc-search__tags">
-              <span class="sc-search__tag sc-search__tag--place">📍 Place</span>
-              <span class="sc-search__tag sc-search__tag--addr">🏠 Address</span>
-              <span class="sc-search__tag sc-search__tag--cat">☕ Category</span>
-            </div>
-            <div class="sc-search__results">
-              <div class="sc-search__result"><span class="sc-search__name">Third Wave Coffee</span><span class="sc-search__dist">0.3 km</span></div>
-              <div class="sc-search__result"><span class="sc-search__name">Blue Tokai, 4th Block</span><span class="sc-search__dist">0.7 km</span></div>
-              <div class="sc-search__result"><span class="sc-search__name">Café Azzure</span><span class="sc-search__dist">1.1 km</span></div>
+            <div class="sc-card__back">
+              <h4 class="sc-card__back-title">Benefits</h4>
+              <ul class="sc-card__back-list">
+                <li>Semantic intent analysis</li>
+                <li>Intelligent proximity and biasing</li>
+                <li>Rich metadata delivery</li>
+                <li>Route-based discovery</li>
+                <li>Fuzzy logic and error tolerance</li>
+                <li>Precision type filtering</li>
+              </ul>
             </div>
           </div>
-          <h3 class="sc-card__title">Search API</h3>
-          <p class="sc-card__desc">Semantic intent analysis that distinguishes addresses from place categories, delivering precise location results instantly.</p>
         </div>
-      </div>
-      <div class="showcase__cta-row">
-        <a href="mailto:sales@delhiverymaps.com" class="btn btn--accent showcase__demo-btn">Book a Demo</a>
       </div>
     </div>
   </section>
@@ -298,44 +358,62 @@
   <section id="industries" class="industries">
     <div class="container">
       <div class="section-badge"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="7" width="4" height="5" rx="0.5" stroke="rgba(255,255,255,0.7)" stroke-width="1" fill="none"/><rect x="5" y="4" width="4" height="8" rx="0.5" stroke="rgba(255,255,255,0.7)" stroke-width="1" fill="none"/><rect x="8" y="5" width="4" height="7" rx="0.5" stroke="rgba(255,255,255,0.7)" stroke-width="1" fill="none"/><line x1="1" y1="12" x2="13" y2="12" stroke="rgba(255,255,255,0.7)" stroke-width="1" stroke-linecap="round"/></svg><span>Industries</span></div>
-      <h2 class="industries__title">Built for Every Business<br>That Ships</h2>
+      <h2 class="industries__title reveal">Built for Every Business<br>That Ships</h2>
       <div class="industries__grid">
-        <article class="industries__card">
-              <div class="industries__card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M4 8H24V22H4V8Z" fill="rgba(255,255,255,0.7)"/><path d="M4 8L14 2L24 8" fill="rgba(255,255,255,0.5)"/><circle cx="14" cy="15" r="3" fill="#ED1B36"/></svg></div>
-              <h3 class="industries__card-title">E-commerce & D2C</h3>
-              <p class="industries__card-desc">Enhance checkout address accuracy and reduce delivery failures.</p>
-
+        <article class="industries__card reveal">
+          <div class="industries__card-icon">
+            <!-- Shopping cart — E-commerce -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M6 6H8L11 18H21L24 9H9" fill="rgba(255,255,255,0.7)"/><circle cx="12" cy="22" r="2" fill="#FF4D6D"/><circle cx="20" cy="22" r="2" fill="#FF4D6D"/></svg>
+          </div>
+          <h3 class="industries__card-title">E-commerce & D2C</h3>
+          <p class="industries__card-desc">Enhance checkout address accuracy and reduce delivery failures.</p>
         </article>
-        <article class="industries__card">
-              <div class="industries__card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="3" y="10" width="10" height="14" rx="1.5" fill="rgba(255,255,255,0.7)"/><path d="M13 17H22C23.1 17 24 17.9 24 19V24H13V17Z" fill="rgba(255,255,255,0.5)"/><circle cx="8" cy="26" r="2" fill="#ED1B36"/><circle cx="21" cy="26" r="2" fill="#ED1B36"/></svg></div>
-              <h3 class="industries__card-title">Logistics & Courier Networks</h3>
-              <p class="industries__card-desc">Sort better, route smarter, and deliver faster while reducing operational costs.</p>
-
+        <article class="industries__card reveal">
+          <div class="industries__card-icon">
+            <!-- Delivery truck — Logistics -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="2" y="8" width="14" height="12" rx="1.5" fill="rgba(255,255,255,0.7)"/><path d="M16 12H22L25 16V20H16V12Z" fill="rgba(255,255,255,0.5)"/><circle cx="8" cy="22" r="2.5" fill="#FF4D6D"/><circle cx="21" cy="22" r="2.5" fill="#FF4D6D"/></svg>
+          </div>
+          <h3 class="industries__card-title">Logistics & Courier Networks</h3>
+          <p class="industries__card-desc">Sort better, route smarter, and deliver faster while reducing operational costs.</p>
         </article>
-        <article class="industries__card">
-              <div class="industries__card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="10" fill="rgba(255,255,255,0.15)"/><circle cx="14" cy="14" r="7" fill="rgba(255,255,255,0.7)"/><path d="M14 8V14L19 19" stroke="#ED1B36" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
-              <h3 class="industries__card-title">Mobility & Ride Platforms</h3>
-              <p class="industries__card-desc">Enable smarter pickup matching, reliable ETAs and stronger passenger trust.</p>
-
+        <article class="industries__card reveal">
+          <div class="industries__card-icon">
+            <!-- Car with location pin — Mobility -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M5 16L7 10H21L23 16V20H5V16Z" fill="rgba(255,255,255,0.7)"/><circle cx="9" cy="21" r="2" fill="#FF4D6D"/><circle cx="19" cy="21" r="2" fill="#FF4D6D"/><path d="M14 2C12 2 10.5 3.5 10.5 5.5C10.5 8.5 14 12 14 12S17.5 8.5 17.5 5.5C17.5 3.5 16 2 14 2Z" fill="#FF4D6D"/><circle cx="14" cy="5.5" r="1.2" fill="#000"/></svg>
+          </div>
+          <h3 class="industries__card-title">Mobility & Ride Platforms</h3>
+          <p class="industries__card-desc">Enable smarter pickup matching, reliable ETAs and stronger passenger trust.</p>
         </article>
-        <article class="industries__card">
-              <div class="industries__card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="4" y="4" width="20" height="20" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/><path d="M4 12H24M12 4V24" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="8" cy="8" r="1.5" fill="#ED1B36"/></svg></div>
-              <h3 class="industries__card-title">Real Estate</h3>
-              <p class="industries__card-desc">Visualize property listings with precise location intelligence.</p>
-
+        <article class="industries__card reveal">
+          <div class="industries__card-icon">
+            <!-- Building — Real Estate -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="4" y="6" width="12" height="18" rx="1" fill="rgba(255,255,255,0.7)"/><rect x="16" y="12" width="8" height="12" rx="1" fill="rgba(255,255,255,0.5)"/><rect x="7" y="9" width="3" height="3" rx="0.5" fill="#FF4D6D"/><rect x="7" y="15" width="3" height="3" rx="0.5" fill="#FF4D6D"/><rect x="12" y="9" width="2" height="3" rx="0.5" fill="rgba(0,0,0,0.15)"/><rect x="12" y="15" width="2" height="3" rx="0.5" fill="rgba(0,0,0,0.15)"/><rect x="19" y="15" width="2" height="3" rx="0.5" fill="rgba(0,0,0,0.15)"/></svg>
+          </div>
+          <h3 class="industries__card-title">Real Estate</h3>
+          <p class="industries__card-desc">Visualize property listings with precise location intelligence.</p>
         </article>
-        <article class="industries__card">
-              <div class="industries__card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 3L3 9V19L14 25L25 19V9L14 3Z" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/><path d="M3 9L14 15M14 15L25 9M14 15V25" stroke="#ED1B36" stroke-width="1.2" fill="none"/></svg></div>
-              <h3 class="industries__card-title">Retail</h3>
-              <p class="industries__card-desc">Maximize reach with smart distribution networks using isochrones, while tracking fleet movement and delivery status in real time.</p>
-
+        <article class="industries__card reveal">
+          <div class="industries__card-icon">
+            <!-- Store front — Retail -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M3 12L5 5H23L25 12H3Z" fill="rgba(255,255,255,0.7)"/><rect x="5" y="12" width="18" height="12" fill="rgba(255,255,255,0.5)"/><rect x="11" y="16" width="6" height="8" rx="0.5" fill="#FF4D6D"/><circle cx="8" cy="12" r="2.5" fill="rgba(255,255,255,0.9)"/><circle cx="14" cy="12" r="2.5" fill="rgba(255,255,255,0.9)"/><circle cx="20" cy="12" r="2.5" fill="rgba(255,255,255,0.9)"/></svg>
+          </div>
+          <h3 class="industries__card-title">Retail</h3>
+          <p class="industries__card-desc">Maximize reach with smart distribution using isochrones and real-time fleet tracking.</p>
         </article>
-        <article class="industries__card">
-              <div class="industries__card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="4" y="14" width="4" height="10" rx="1" fill="rgba(255,255,255,0.3)"/><rect x="10" y="10" width="4" height="14" rx="1" fill="rgba(255,255,255,0.4)"/><rect x="16" y="6" width="4" height="18" rx="1" fill="rgba(255,255,255,0.5)"/><rect x="22" y="2" width="4" height="22" rx="1" fill="#ED1B36"/></svg></div>
-              <h3 class="industries__card-title">Business Intelligence</h3>
-              <p class="industries__card-desc">Build engaging and intuitive map-based data visualizations.</p>
-
+        <article class="industries__card reveal">
+          <div class="industries__card-icon">
+            <!-- Dashboard with map marker — Business Intelligence -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="2" y="4" width="24" height="16" rx="2" fill="rgba(255,255,255,0.7)"/><rect x="5" y="7" width="8" height="5" rx="1" fill="#FF4D6D"/><rect x="15" y="7" width="8" height="2" rx="0.5" fill="rgba(0,0,0,0.15)"/><rect x="15" y="10.5" width="5" height="2" rx="0.5" fill="rgba(0,0,0,0.15)"/><rect x="5" y="14" width="3" height="3" rx="0.5" fill="rgba(0,0,0,0.12)"/><rect x="10" y="14" width="3" height="3" rx="0.5" fill="rgba(0,0,0,0.12)"/><rect x="15" y="14" width="3" height="3" rx="0.5" fill="rgba(0,0,0,0.12)"/><rect x="10" y="22" width="8" height="2" rx="1" fill="rgba(255,255,255,0.4)"/></svg>
+          </div>
+          <h3 class="industries__card-title">Business Intelligence</h3>
+          <p class="industries__card-desc">Build engaging and intuitive map-based data visualizations.</p>
         </article>
+      </div>
+      <div class="industries__cta-row">
+        <a href="support.html" class="btn industries__demo-btn shimmer-btn">
+          <span class="shimmer-btn__text">Book a Demo</span>
+          <span class="shimmer-btn__shine" aria-hidden="true"></span>
+        </a>
       </div>
     </div>
   </section>
@@ -378,7 +456,7 @@
 
   <section id="pricing" class="pricing">
     <div class="container">
-      <div class="pricing__header">
+      <div class="pricing__header reveal">
         <div class="pricing__badge">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M2 2H7L13 8L8 13L2 7V2Z" stroke="rgba(255,255,255,0.7)" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
@@ -398,141 +476,141 @@
         </button>
         <div class="pricing-carousel__track" id="pricingTrack">
 
-        <!-- Autocomplete Card -->
-        <article class="pricing__card pricing__slider-card" data-price="0.01">
-          <div class="psc__header">
-            <h3 class="psc__title">Autocomplete</h3>
-            <span class="psc__free-badge">500K free</span>
-          </div>
-          <div class="psc__volume-row">
-            <span class="psc__label">Monthly Volume</span>
-            <span class="psc__volume-val">0 reqs/month</span>
-          </div>
-          <div class="psc__slider-wrap">
-            <div class="psc__track-bg">
-              <div class="psc__track-fill"></div>
-            </div>
-            <input type="range" class="psc__slider" min="0" max="5" step="1" value="0" aria-label="Monthly volume for Autocomplete">
-            <div class="psc__ticks" aria-hidden="true">
-              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
-            </div>
-          </div>
-          <div class="psc__price-display">
-            <span class="psc__price psc__price--free">FREE</span>
-          </div>
-        </article>
-
-        <!-- Geocoding Card -->
-        <article class="pricing__card pricing__slider-card" data-price="0.01">
-          <div class="psc__header">
-            <h3 class="psc__title">Geocoding</h3>
-            <span class="psc__free-badge">500K free</span>
-          </div>
-          <div class="psc__volume-row">
-            <span class="psc__label">Monthly Volume</span>
-            <span class="psc__volume-val">0 reqs/month</span>
-          </div>
-          <div class="psc__slider-wrap">
-            <div class="psc__track-bg">
-              <div class="psc__track-fill"></div>
-            </div>
-            <input type="range" class="psc__slider" min="0" max="5" step="1" value="0" aria-label="Monthly volume for Geocoding">
-            <div class="psc__ticks" aria-hidden="true">
-              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
-            </div>
-          </div>
-          <div class="psc__price-display">
-            <span class="psc__price psc__price--free">FREE</span>
-          </div>
-        </article>
-
-        <!-- Routing API Card -->
-        <article class="pricing__card pricing__slider-card" data-price="0.02">
-          <div class="psc__header">
-            <h3 class="psc__title">Routing API</h3>
-            <span class="psc__free-badge">500K free</span>
-          </div>
-          <div class="psc__volume-row">
-            <span class="psc__label">Monthly Volume</span>
-            <span class="psc__volume-val">0 reqs/month</span>
-          </div>
-          <div class="psc__slider-wrap">
-            <div class="psc__track-bg">
-              <div class="psc__track-fill"></div>
-            </div>
-            <input type="range" class="psc__slider" min="0" max="5" step="1" value="0" aria-label="Monthly volume for Routing API">
-            <div class="psc__ticks" aria-hidden="true">
-              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
-            </div>
-          </div>
-          <div class="psc__price-display">
-            <span class="psc__price psc__price--free">FREE</span>
-          </div>
-        </article>
-
-        <!-- Reverse Geocoding Card -->
-        <article class="pricing__card pricing__slider-card" data-price="0.01">
-          <div class="psc__header">
-            <h3 class="psc__title">Reverse Geocoding</h3>
-            <span class="psc__free-badge">500K free</span>
-          </div>
-          <div class="psc__volume-row">
-            <span class="psc__label">Monthly Volume</span>
-            <span class="psc__volume-val">0 reqs/month</span>
-          </div>
-          <div class="psc__slider-wrap">
-            <div class="psc__track-bg">
-              <div class="psc__track-fill"></div>
-            </div>
-            <input type="range" class="psc__slider" min="0" max="5" step="1" value="0" aria-label="Monthly volume for Reverse Geocoding">
-            <div class="psc__ticks" aria-hidden="true">
-              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
-            </div>
-          </div>
-          <div class="psc__price-display">
-            <span class="psc__price psc__price--free">FREE</span>
-          </div>
-        </article>
-
-        <!-- Raster Tiles Card -->
-        <article class="pricing__card pricing__slider-card" data-price="0.005">
-          <div class="psc__header">
-            <h3 class="psc__title">Raster Tiles</h3>
-            <span class="psc__free-badge">500K free</span>
-          </div>
-          <div class="psc__volume-row">
-            <span class="psc__label">Monthly Volume</span>
-            <span class="psc__volume-val">0 reqs/month</span>
-          </div>
-          <div class="psc__slider-wrap">
-            <div class="psc__track-bg">
-              <div class="psc__track-fill"></div>
-            </div>
-            <input type="range" class="psc__slider" min="0" max="5" step="1" value="0" aria-label="Monthly volume for Raster Tiles">
-            <div class="psc__ticks" aria-hidden="true">
-              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
-            </div>
-          </div>
-          <div class="psc__price-display">
-            <span class="psc__price psc__price--free">FREE</span>
-          </div>
-        </article>
-
         <!-- Matrix API Card -->
         <article class="pricing__card pricing__slider-card" data-price="0.03">
           <div class="psc__header">
             <h3 class="psc__title">Matrix API</h3>
-            <span class="psc__free-badge">500K free</span>
+            <span class="psc__rate">Price per API Call ₹ 0.03</span>
           </div>
           <div class="psc__volume-row">
-            <span class="psc__label">Monthly Volume</span>
-            <span class="psc__volume-val">0 reqs/month</span>
+            <span class="psc__label">Monthly volume</span>
+            <span class="psc__volume-val">500K reqs/month</span>
           </div>
           <div class="psc__slider-wrap">
             <div class="psc__track-bg">
               <div class="psc__track-fill"></div>
             </div>
-            <input type="range" class="psc__slider" min="0" max="5" step="1" value="0" aria-label="Monthly volume for Matrix API">
+            <input type="range" class="psc__slider" autocomplete="off" min="0" max="1000" step="1" value="50" aria-label="Monthly volume for Matrix API">
+            <div class="psc__ticks" aria-hidden="true">
+              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
+            </div>
+          </div>
+          <div class="psc__price-display">
+            <span class="psc__price psc__price--free">FREE</span>
+          </div>
+        </article>
+
+        <!-- Raster Tiles API Card -->
+        <article class="pricing__card pricing__slider-card" data-price="0.005">
+          <div class="psc__header">
+            <h3 class="psc__title">Raster Tiles</h3>
+            <span class="psc__rate">Price per API Call ₹ 0.005</span>
+          </div>
+          <div class="psc__volume-row">
+            <span class="psc__label">Monthly volume</span>
+            <span class="psc__volume-val">500K reqs/month</span>
+          </div>
+          <div class="psc__slider-wrap">
+            <div class="psc__track-bg">
+              <div class="psc__track-fill"></div>
+            </div>
+            <input type="range" class="psc__slider" autocomplete="off" min="0" max="1000" step="1" value="400" aria-label="Monthly volume for Raster Tiles API">
+            <div class="psc__ticks" aria-hidden="true">
+              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
+            </div>
+          </div>
+          <div class="psc__price-display">
+            <span class="psc__price psc__price--free">FREE</span>
+          </div>
+        </article>
+
+        <!-- Reverse Geocoding API Card -->
+        <article class="pricing__card pricing__slider-card" data-price="0.01">
+          <div class="psc__header">
+            <h3 class="psc__title">Reverse Geocoding</h3>
+            <span class="psc__rate">Price per API Call ₹ 0.01</span>
+          </div>
+          <div class="psc__volume-row">
+            <span class="psc__label">Monthly volume</span>
+            <span class="psc__volume-val">500K reqs/month</span>
+          </div>
+          <div class="psc__slider-wrap">
+            <div class="psc__track-bg">
+              <div class="psc__track-fill"></div>
+            </div>
+            <input type="range" class="psc__slider" autocomplete="off" min="0" max="1000" step="1" value="400" aria-label="Monthly volume for Reverse Geocoding API">
+            <div class="psc__ticks" aria-hidden="true">
+              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
+            </div>
+          </div>
+          <div class="psc__price-display">
+            <span class="psc__price psc__price--free">FREE</span>
+          </div>
+        </article>
+
+        <!-- Routes API Card -->
+        <article class="pricing__card pricing__slider-card" data-price="0.02">
+          <div class="psc__header">
+            <h3 class="psc__title">Routes</h3>
+            <span class="psc__rate">Price per API Call ₹ 0.02</span>
+          </div>
+          <div class="psc__volume-row">
+            <span class="psc__label">Monthly volume</span>
+            <span class="psc__volume-val">500K reqs/month</span>
+          </div>
+          <div class="psc__slider-wrap">
+            <div class="psc__track-bg">
+              <div class="psc__track-fill"></div>
+            </div>
+            <input type="range" class="psc__slider" autocomplete="off" min="0" max="1000" step="1" value="400" aria-label="Monthly volume for Routes API">
+            <div class="psc__ticks" aria-hidden="true">
+              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
+            </div>
+          </div>
+          <div class="psc__price-display">
+            <span class="psc__price psc__price--free">FREE</span>
+          </div>
+        </article>
+
+        <!-- Sequence API Card -->
+        <article class="pricing__card pricing__slider-card" data-price="0.01">
+          <div class="psc__header">
+            <h3 class="psc__title">Sequence</h3>
+            <span class="psc__rate">Price per API Call ₹ 0.01</span>
+          </div>
+          <div class="psc__volume-row">
+            <span class="psc__label">Monthly volume</span>
+            <span class="psc__volume-val">500K reqs/month</span>
+          </div>
+          <div class="psc__slider-wrap">
+            <div class="psc__track-bg">
+              <div class="psc__track-fill"></div>
+            </div>
+            <input type="range" class="psc__slider" autocomplete="off" min="0" max="1000" step="1" value="400" aria-label="Monthly volume for Sequence API">
+            <div class="psc__ticks" aria-hidden="true">
+              <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
+            </div>
+          </div>
+          <div class="psc__price-display">
+            <span class="psc__price psc__price--free">FREE</span>
+          </div>
+        </article>
+
+        <!-- Stops Generating API Card -->
+        <article class="pricing__card pricing__slider-card" data-price="0.015">
+          <div class="psc__header">
+            <h3 class="psc__title">Stops Generating</h3>
+            <span class="psc__rate">Price per API Call ₹ 0.03</span>
+          </div>
+          <div class="psc__volume-row">
+            <span class="psc__label">Monthly volume</span>
+            <span class="psc__volume-val">500K reqs/month</span>
+          </div>
+          <div class="psc__slider-wrap">
+            <div class="psc__track-bg">
+              <div class="psc__track-fill"></div>
+            </div>
+            <input type="range" class="psc__slider" autocomplete="off" min="0" max="1000" step="1" value="400" aria-label="Monthly volume for Stops Generating API">
             <div class="psc__ticks" aria-hidden="true">
               <span>0</span><span>100K</span><span>500K</span><span>2M</span><span>5M</span><span>10M</span>
             </div>
@@ -657,33 +735,27 @@
   </footer>
 
 
-  <script src="js/main.js?v=18" defer></script>
+  <script src="js/main.js?v=27" defer></script>
   <script>
     (function () {
-      // Volume stops: index → actual number
-      var STOPS = [0, 100000, 500000, 2000000, 5000000, 10000000];
+      var MAX_VOLUME = 10000000;
       var FREE_THRESHOLD = 500000;
 
       function formatVolume(n) {
         if (n === 0) return '0';
-        if (n >= 1000000) return (n / 1000000) + 'M';
-        if (n >= 1000) return (n / 1000) + 'K';
-        return n.toString();
+        if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        if (n >= 1000) return Math.round(n / 1000) + 'K';
+        return Math.round(n).toString();
       }
 
       function formatPrice(amount) {
-        // Format with Indian-style comma grouping
+        if (amount < 1) return amount.toFixed(2);
         var str = Math.round(amount).toString();
-        var result = '';
-        var len = str.length;
-        for (var i = 0; i < len; i++) {
-          var pos = len - i;
-          if (i > 0) {
-            if (pos === 3 || (pos < 3 && (pos - 3) % 2 === 0)) result += ',';
-          }
-          result += str[i];
-        }
-        return result;
+        // Indian comma grouping
+        var lastThree = str.substring(str.length - 3);
+        var rest = str.substring(0, str.length - 3);
+        if (rest !== '') lastThree = ',' + lastThree;
+        return rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree;
       }
 
       function updateCard(card) {
@@ -693,15 +765,20 @@
         var priceEl = card.querySelector('.psc__price');
         var pricePerCall = parseFloat(card.dataset.price);
 
-        var idx = parseInt(slider.value, 10);
-        var volume = STOPS[idx];
-        var pct = (idx / (STOPS.length - 1)) * 100;
+        // Slider is 0–1000 for smooth dragging, map to 0–10M with exponential curve
+        var raw = parseInt(slider.value, 10);
+        var t = raw / 1000;
+        // Exponential mapping for better low-end resolution
+        var volume = Math.round(MAX_VOLUME * t * t);
+        // Snap to 500K when close
+        if (volume >= 480000 && volume <= 520000) volume = 500000;
+        var pct = (raw / 1000) * 100;
 
         // Update volume label
         volumeVal.textContent = formatVolume(volume) + ' reqs/month';
 
-        // Update track fill
-        trackFill.style.width = pct + '%';
+        // Update track fill — we need to use a CSS variable since we can't style ::-webkit-slider-runnable-track dynamically
+        slider.style.setProperty('--fill', pct + '%');
 
         // Update price display
         if (volume <= FREE_THRESHOLD) {
@@ -710,27 +787,59 @@
         } else {
           var billable = volume - FREE_THRESHOLD;
           var cost = billable * pricePerCall;
-          priceEl.textContent = '₹' + formatPrice(cost) + '/mo';
+          priceEl.textContent = '\u20B9' + formatPrice(cost) + '/mo';
           priceEl.className = 'psc__price psc__price--paid';
         }
+      }
+
+      // Audio tick for haptic-like feedback on desktop
+      var lastTickVal = 0;
+      var tickInterval = 20; // trigger every 20 slider units
+      var audioCtx = null;
+      function playTick() {
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          var osc = audioCtx.createOscillator();
+          var gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.frequency.value = 1800;
+          gain.gain.value = 0.03;
+          osc.start();
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
+          osc.stop(audioCtx.currentTime + 0.02);
+        } catch(e) {}
       }
 
       function initSliders() {
         var cards = document.querySelectorAll('.pricing__slider-card');
         cards.forEach(function (card) {
           var slider = card.querySelector('.psc__slider');
-          updateCard(card); // init state
+          // Force default to 500K position (override browser form restore)
+          slider.value = 400;
+          updateCard(card);
           slider.addEventListener('input', function () {
             updateCard(card);
+            // Haptic feedback: vibrate on mobile, audio tick on desktop
+            if (navigator.vibrate) navigator.vibrate(5);
+            var raw = parseInt(slider.value, 10);
+            if (Math.abs(raw - lastTickVal) >= tickInterval) {
+              lastTickVal = raw;
+              playTick();
+            }
           });
         });
       }
 
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSliders);
+        document.addEventListener('DOMContentLoaded', function() {
+          requestAnimationFrame(function() { requestAnimationFrame(initSliders); });
+        });
       } else {
-        initSliders();
+        requestAnimationFrame(function() { requestAnimationFrame(initSliders); });
       }
+      // Also reset on pageshow (fires after browser restores form values on back/forward)
+      window.addEventListener('pageshow', function() { initSliders(); });
     })();
   </script>
 </body>

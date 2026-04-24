@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background:#000">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=11">
+  <link rel="stylesheet" href="css/styles.css?v=8">
   <style>
     * { font-family: 'Noto Sans', sans-serif; }
-    html { transition: opacity 0.25s ease; }
-    html.page-loading { opacity: 0; }
-    html.page-transitioning { opacity: 0; }
+    html { }
+    html.page-loading { }
+    html.page-transitioning { }
 
     .dev-layout { display: flex; min-height: 100vh; background: #000; padding-top: 64px; }
     /* Sidebar */
@@ -87,8 +87,8 @@
 
     /* Feature cards */
     .dev-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 28px 0 40px; }
-    .dev-card { background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 20px; }
-    .dev-card-icon { width: 40px; height: 40px; background: rgba(255,77,109,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .dev-card { background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 24px 20px; }
+    .dev-card-icon { width: 40px; height: 40px; background: rgba(255,77,109,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
     .dev-card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
     .dev-card-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; margin: 0; }
     @media (max-width: 700px) { .dev-cards { grid-template-columns: 1fr; } }
@@ -131,7 +131,7 @@
         <a href="developer.html" class="header__nav-link header__nav-link--active">Developer</a>
         <a href="support.html" class="header__nav-link">Support</a>
       </nav>
-      <a href="#" class="header__signin">Sign in</a>
+      <a href="signin.html" class="header__signin">Sign in</a>
     </div>
   </header>
 
@@ -683,23 +683,6 @@ const map = new DelhiveryMaps.Map(<span class="token-str">'map-container'</span>
 </html>
 
 <script>
-  // Page transition fade-in
-  document.documentElement.classList.add('page-loading');
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() { document.documentElement.classList.remove('page-loading'); });
-  });
-  // Fade-out on nav clicks
-  document.querySelectorAll('a[href]').forEach(function(a) {
-    var href = a.getAttribute('href');
-    if (href && !href.startsWith('#') && !href.startsWith('mailto')) {
-      a.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.documentElement.classList.add('page-transitioning');
-        setTimeout(function() { window.location.href = href; }, 250);
-      });
-    }
-  });
-
   // Collapsible sidebar groups
   document.querySelectorAll('.dev-nav-group').forEach(function(btn) {
     btn.addEventListener('click', function() {

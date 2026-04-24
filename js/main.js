@@ -7,25 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinks.forEach(function(link) {
     link.addEventListener('click', function(e) {
       var href = link.getAttribute('href');
-      // Intercept page navigations for fade transition
       if (href && !href.startsWith('#') && !href.startsWith('mailto')) {
-        e.preventDefault();
         navLinks.forEach(function(l) { l.classList.remove('header__nav-link--active'); });
         link.classList.add('header__nav-link--active');
-        document.documentElement.classList.add('page-transitioning');
-        setTimeout(function() { window.location.href = href; }, 250);
       } else {
         navLinks.forEach(function(l) { l.classList.remove('header__nav-link--active'); });
         link.classList.add('header__nav-link--active');
       }
-    });
-  });
-
-  // Fade in on page load
-  document.documentElement.classList.add('page-loading');
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      document.documentElement.classList.remove('page-loading');
     });
   });
 
@@ -49,6 +37,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Typewriter Effect for "Precision" ---
+
+  // --- Map Spotlight Reveal ---
+  var mapReveal = document.querySelector('.hero');
+  var mapBright = document.getElementById('mapBright');
+  if (mapReveal && mapBright && window.matchMedia('(hover: hover)').matches) {
+    var spotX = 0, spotY = 0, targetX = 0, targetY = 0;
+    var spotRadius = 120;
+
+    mapReveal.style.cursor = 'none';
+    mapBright.style.pointerEvents = 'none';
+
+    mapReveal.addEventListener('mousemove', function(e) {
+      var mapBg = document.getElementById('mapReveal');
+      var rect = mapBg ? mapBg.getBoundingClientRect() : mapReveal.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+    });
+
+    mapReveal.addEventListener('mouseleave', function() {
+      mapBright.style.maskImage = 'radial-gradient(circle 0px at ' + spotX + 'px ' + spotY + 'px, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)';
+      mapBright.style.webkitMaskImage = 'radial-gradient(circle 0px at ' + spotX + 'px ' + spotY + 'px, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)';
+    });
+
+    (function spotLoop() {
+      spotX += (targetX - spotX) * 0.12;
+      spotY += (targetY - spotY) * 0.12;
+      var mask = 'radial-gradient(circle ' + spotRadius + 'px at ' + spotX + 'px ' + spotY + 'px, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)';
+      mapBright.style.maskImage = mask;
+      mapBright.style.webkitMaskImage = mask;
+      requestAnimationFrame(spotLoop);
+    })();
+  }
+
   const typeTarget = document.getElementById('typewriterTarget');
   if (typeTarget) {
     const words = ['Precision', 'Intelligence', 'Accuracy', 'Speed'];
@@ -143,50 +164,94 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-      if (!isFlipped) card.classList.add('is-flipped');
-    });
-  });
+  // --- TiltCard Controller (Industries + non-flip Showcase) — tilt only ---
+  (function initTiltCards() {
+    var isHoverDevice = window.matchMedia('(hover: hover)').matches;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var TILT_FACTOR = 15;
+    var TILT_SPEED = 0.2;
+    var HOVER_SCALE = 1.05;
 
-      if (!isFlipped) card.classList.add('is-flipped');
-    });
-  });
-
-  // --- 3D Tilt Card Effect (Industries section) ---
-  document.querySelectorAll('.industries__card').forEach(function(card) {
-    var tiltFactor = 12;
-    var perspective = 800;
-
-    card.style.transformStyle = 'preserve-3d';
-    card.style.transition = 'transform 0.15s ease-out, box-shadow 0.15s ease-out';
-    card.style.willChange = 'transform';
-
-    // Add glare overlay
-    var glare = document.createElement('div');
-    glare.style.cssText = 'position:absolute;inset:0;border-radius:8px;pointer-events:none;z-index:2;opacity:0;transition:opacity 0.15s ease;';
-    card.style.position = 'relative';
-    card.style.overflow = 'hidden';
-    card.appendChild(glare);
-
-    card.addEventListener('mousemove', function(e) {
-      var rect = card.getBoundingClientRect();
-      var x = ((e.clientX - rect.left) / rect.width - 0.5) * 100;
-      var y = ((e.clientY - rect.top) / rect.height - 0.5) * 100;
-      var tiltX = -(y / 50) * tiltFactor;
-      var tiltY = (x / 50) * tiltFactor;
-      card.style.transform = 'perspective(' + perspective + 'px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale(1.02)';
-      card.style.boxShadow = '0 20px 40px rgba(255,77,109,0.12)';
-      var glareX = 50 + x / 2;
-      var glareY = 50 + y / 2;
-      glare.style.background = 'radial-gradient(circle at ' + glareX + '% ' + glareY + '%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%)';
-      glare.style.opacity = '1';
+    // After reveal animation ends on industries cards, free the transform property for tilt
+    document.querySelectorAll('.industries__card.reveal').forEach(function(card) {
+      card.addEventListener('transitionend', function handler(e) {
+        if (e.propertyName === 'transform' && card.classList.contains('is-visible')) {
+          card.removeEventListener('transitionend', handler);
+          card.classList.remove('reveal', 'is-visible');
+          card.style.opacity = '1';
+          card.classList.add('tilt-ready');
+        }
+      });
     });
 
-    card.addEventListener('mouseleave', function() {
-      card.style.transform = 'perspective(' + perspective + 'px) rotateX(0deg) rotateY(0deg) scale(1)';
-      card.style.boxShadow = '';
-      glare.style.opacity = '0';
+    if (isHoverDevice && !reducedMotion) {
+      var tiltCards = document.querySelectorAll('.industries__card, .sc-card:not(.sc-card--flip)');
+      tiltCards.forEach(function(card) {
+        card.addEventListener('mouseenter', function() {
+          if (card.classList.contains('reveal')) return;
+          card.style.transition = 'transform ' + TILT_SPEED + 's ease-out, box-shadow ' + TILT_SPEED + 's ease-out';
+          card.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.5)';
+        });
+
+        card.addEventListener('mousemove', function(e) {
+          if (card.classList.contains('reveal')) return;
+
+          var rect = card.getBoundingClientRect();
+          var x = ((e.clientX - rect.left) / rect.width - 0.5) * 100;
+          var y = ((e.clientY - rect.top) / rect.height - 0.5) * 100;
+          var tiltX = -(y / 50) * TILT_FACTOR;
+          var tiltY = (x / 50) * TILT_FACTOR;
+          card.style.transition = 'transform ' + TILT_SPEED + 's ease-out, box-shadow ' + TILT_SPEED + 's ease-out';
+          card.style.transform = 'perspective(1000px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale(' + HOVER_SCALE + ')';
+        });
+
+        card.addEventListener('mouseleave', function() {
+          if (card.classList.contains('reveal')) return;
+          card.style.transition = 'transform 0.35s ease-out, box-shadow 0.35s ease-out';
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      });
+    }
+  })();
+
+  // --- Flip Card Controller (Showcase only) ---
+  (function initFlipCards() {
+    var flipCards = document.querySelectorAll('.sc-card--flip');
+    if (!flipCards.length) return;
+
+    var isHoverDevice = window.matchMedia('(hover: hover)').matches;
+
+    flipCards.forEach(function(card) {
+      function setFlipped(flipped) {
+        if (flipped) {
+          card.classList.add('sc-card--flipped');
+        } else {
+          card.classList.remove('sc-card--flipped');
+        }
+        card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+      }
+
+      if (isHoverDevice) {
+        card.addEventListener('mouseenter', function() { setFlipped(true); });
+        card.addEventListener('mouseleave', function() { setFlipped(false); });
+      } else {
+        card.addEventListener('click', function() {
+          var isFlipped = card.classList.contains('sc-card--flipped');
+          setFlipped(!isFlipped);
+        });
+      }
+
+      // Keyboard: Enter/Space to toggle
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          var isFlipped = card.classList.contains('sc-card--flipped');
+          setFlipped(!isFlipped);
+        }
+      });
     });
-  });
+  })();
   document.querySelectorAll('.faq__item').forEach(function(item) {
     var btn = item.querySelector('.faq__question');
     var answer = item.querySelector('.faq__answer');
@@ -434,6 +499,39 @@ document.addEventListener('DOMContentLoaded', () => {
     odometerData.forEach(function(d) { odometerObserver.observe(d.el); });
   }
 
+  // --- Inject company logos into testimonial cards ---
+  (function() {
+    var companies = [
+      { name: 'Flipkart', domain: 'flipkart.com' },
+      { name: 'Swiggy', domain: 'swiggy.com' },
+      { name: 'Meesho', domain: 'meesho.com' },
+      { name: 'Zepto', domain: 'zeptonow.com' },
+      { name: 'Dunzo', domain: 'dunzo.com' },
+      { name: 'PhonePe', domain: 'phonepe.com' },
+      { name: 'Zomato', domain: 'zomato.com' },
+      { name: 'BigBasket', domain: 'bigbasket.com' },
+      { name: 'Delhivery', domain: 'delhivery.com' }
+    ];
+    var cards = document.querySelectorAll('.testi__card');
+    cards.forEach(function(card, i) {
+      var company = companies[i % companies.length];
+      var logo = document.createElement('img');
+      logo.className = 'testi__company-logo';
+      logo.src = 'https://logo.clearbit.com/' + company.domain + '?size=40';
+      logo.alt = company.name;
+      logo.loading = 'lazy';
+      logo.onerror = function() {
+        // Fallback to text if logo fails
+        var text = document.createElement('span');
+        text.className = 'testi__company';
+        text.textContent = company.name;
+        card.appendChild(text);
+        logo.remove();
+      };
+      card.appendChild(logo);
+    });
+  })();
+
   // --- Pricing Carousel (button-only navigation) ---
   var pricingCarousel = document.getElementById('pricingCarousel');
   var pricingTrack = document.getElementById('pricingTrack');
@@ -485,6 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var startTime = null;
       if (snapRaf) cancelAnimationFrame(snapRaf);
       function animate(ts) {
+        if (!startTime) startTime = ts;
         var elapsed = ts - startTime;
         var t = Math.min(elapsed / snapDuration, 1);
         var eased = 1 - Math.pow(1 - t, 3);

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#000">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Delhivery Maps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; color: #fff; font-family: 'Noto Sans', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+
+    /* Background effects */
+    .signin-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .signin-bg__mesh { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 65%, rgba(237, 27, 54, 0.25) 0%, rgba(237, 27, 54, 0.08) 45%, transparent 70%); background-size: 200% 200%; animation: meshMove 15s ease infinite; }
+    .signin-bg__dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 24px 24px; mask-image: radial-gradient(ellipse at 50% 55%, black 20%, transparent 65%); -webkit-mask-image: radial-gradient(ellipse at 50% 55%, black 20%, transparent 65%); }
+    @keyframes meshMove { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+
+    /* Go to Home */
+    .signin-back-top { position: fixed; top: 28px; left: 32px; z-index: 10; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s ease; }
+    .signin-back-top:hover { color: #fff; }
+
+    /* Card */
+    .signin-card { position: relative; z-index: 1; width: 100%; max-width: 400px; background: rgba(12, 12, 12, 0.85); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 44px 36px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+    /* Logo */
+    .signin-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 28px; }
+    .signin-logo svg { flex-shrink: 0; }
+    .signin-logo span { font-size: 16px; font-weight: 700; color: #fff; }
+
+    /* Heading */
+    .signin-heading { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 10px; letter-spacing: -0.02em; }
+    .signin-subtext { text-align: center; font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 32px; }
+    .signin-subtext a { color: #ED1B36; text-decoration: none; font-weight: 500; }
+    .signin-subtext a:hover { text-decoration: underline; }
+
+    /* Form */
+    .signin-label { display: block; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+    .signin-input { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: #fff; font-family: 'Noto Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .signin-input::placeholder { color: rgba(255,255,255,0.2); }
+    .signin-input:-webkit-autofill,
+    .signin-input:-webkit-autofill:hover,
+    .signin-input:-webkit-autofill:focus { -webkit-text-fill-color: #fff; -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,0.03) inset; border-color: rgba(255,255,255,0.08); transition: background-color 5000s ease-in-out 0s; }
+    .signin-input:focus { border-color: #ED1B36; box-shadow: 0 0 0 3px rgba(237, 27, 54, 0.15); }
+    .signin-field { margin-bottom: 18px; }
+
+    /* Sign up button */
+    .signin-btn { width: 100%; padding: 13px; background: #ED1B36; color: #fff; border: none; border-radius: 8px; font-family: 'Noto Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: background 0.2s ease; margin-top: 6px; }
+    .signin-btn:hover { opacity: 0.9; }
+    .signin-btn:active { transform: scale(0.98); }
+
+    /* Divider */
+    .signin-divider { display: flex; align-items: center; gap: 14px; margin: 22px 0; }
+    .signin-divider::before, .signin-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+    .signin-divider span { font-size: 14px; color: rgba(255,255,255,0.35); }
+
+    /* Google button */
+    .signin-google { width: 100%; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: #fff; font-family: 'Noto Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s ease, border-color 0.2s ease; }
+    .signin-google:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <div class="signin-bg">
+    <div class="signin-bg__mesh"></div>
+    <div class="signin-bg__dots"></div>
+  </div>
+
+  <!-- Go to Home -->
+  <a href="index.html" class="signin-back-top">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Go to Home
+  </a>
+
+  <!-- Card -->
+  <div class="signin-card">
+    <div class="signin-logo">
+      <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+        <path d="M14 2L4 24H10L14 16L18 24H24L14 2Z" stroke="#ED1B36" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        <path d="M8 20L14 8L20 20" stroke="#ED1B36" stroke-width="1.5" fill="none" opacity="0.5"/>
+      </svg>
+      <span>Delhivery Maps</span>
+    </div>
+
+    <h1 class="signin-heading">Create an account</h1>
+    <p class="signin-subtext">Already have an account? <a href="signin.html">Sign in</a></p>
+
+    <form id="signupForm">
+      <div class="signin-field">
+        <label class="signin-label" for="email">Email</label>
+        <input class="signin-input" type="email" id="email" placeholder="name@email.com" required>
+      </div>
+      <div class="signin-field">
+        <label class="signin-label" for="password">Password</label>
+        <input class="signin-input" type="password" id="password" placeholder="••••••••••" required>
+      </div>
+      <button class="signin-btn" type="submit">Sign up</button>
+    </form>
+
+    <div class="signin-divider"><span>or</span></div>
+
+    <button class="signin-google" type="button" id="googleBtn">
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+        <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+        <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+        <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+        <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+      </svg>
+      Sign up with Google
+    </button>
+  </div>
+
+  <!-- Google Sign-in Simulation Modal -->
+  <div id="googleModal" style="display:none; position:fixed; inset:0; z-index:100; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);">
+    <div style="width:360px; background:#fff; border-radius:12px; padding:32px; color:#202124; font-family:'Noto Sans',sans-serif; position:relative;">
+      <div style="text-align:center; margin-bottom:20px;">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" style="margin-bottom:12px;">
+          <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
+          <path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/>
+          <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>
+          <path d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/>
+        </svg>
+        <h3 style="font-size:18px; font-weight:600; margin:0 0 4px;">Sign in with Google</h3>
+        <p style="font-size:13px; color:#5f6368; margin:0;">Choose an account to continue</p>
+      </div>
+      <div id="googleAccount1" style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:8px; cursor:pointer; transition:background 0.15s ease; border:1px solid #e0e0e0; margin-bottom:8px;">
+        <div style="width:36px; height:36px; border-radius:50%; background:#ED1B36; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; font-weight:600;">D</div>
+        <div>
+          <div style="font-size:14px; font-weight:500; color:#202124;">Demo User</div>
+          <div style="font-size:12px; color:#5f6368;">demo@delhiverymaps.com</div>
+        </div>
+      </div>
+      <div id="googleAccount2" style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:8px; cursor:pointer; transition:background 0.15s ease; border:1px solid #e0e0e0;">
+        <div style="width:36px; height:36px; border-radius:50%; background:#4285F4; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; font-weight:600;">G</div>
+        <div>
+          <div style="font-size:14px; font-weight:500; color:#202124;">Use another account</div>
+          <div style="font-size:12px; color:#5f6368;">Sign in with a different account</div>
+        </div>
+      </div>
+      <button id="googleClose" style="position:absolute; top:12px; right:12px; background:none; border:none; cursor:pointer; color:#5f6368; font-size:18px; line-height:1;">✕</button>
+    </div>
+  </div>
+
+  <!-- Google Consent Screen -->
+  <div id="googleConsent" style="display:none; position:fixed; inset:0; z-index:110; align-items:center; justify-content:center; background:rgba(0,0,0,0.85);">
+    <div style="width:680px; max-width:95vw; background:#1a1a1a; border-radius:12px; overflow:hidden; font-family:'Noto Sans',sans-serif; color:#e8eaed;">
+      <!-- Top bar -->
+      <div style="display:flex; align-items:center; gap:8px; padding:12px 20px; background:#111; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <svg width="18" height="18" viewBox="0 0 48 48" fill="none"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/><path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/><path d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg>
+        <span style="font-size:13px; color:#9aa0a6;">Sign in with Google</span>
+      </div>
+      <!-- Content -->
+      <div style="display:flex; gap:0;">
+        <!-- Left -->
+        <div style="flex:0 0 45%; padding:32px 28px; border-right:1px solid rgba(255,255,255,0.06);">
+          <div style="width:48px; height:48px; background:#111; border:1px solid rgba(255,255,255,0.08); border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2L4 24H10L14 16L18 24H24L14 2Z" stroke="#ED1B36" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M8 20L14 8L20 20" stroke="#ED1B36" stroke-width="1.5" fill="none" opacity="0.5"/></svg>
+          </div>
+          <h3 style="font-size:22px; font-weight:600; margin:0 0 16px; color:#e8eaed;">Sign in to Delhivery Maps</h3>
+          <div id="consentEmail" style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px 6px 6px; background:rgba(255,255,255,0.06); border-radius:50px; font-size:13px; color:#9aa0a6;">
+            <div id="consentAvatar" style="width:24px; height:24px; border-radius:50%; background:#7c4dff; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:600;">V</div>
+            <span id="consentEmailText">demo@delhiverymaps.com</span>
+          </div>
+        </div>
+        <!-- Right -->
+        <div style="flex:1; padding:32px 28px;">
+          <p style="font-size:14px; color:#9aa0a6; margin:0 0 20px;">Google will allow Delhivery Maps to access this info about you</p>
+          <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:16px;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0; margin-top:2px;"><circle cx="10" cy="8" r="3" stroke="#9aa0a6" stroke-width="1.5" fill="none"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#9aa0a6" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            <div><div style="font-size:14px; color:#e8eaed;">Varsha Shikha</div><div style="font-size:12px; color:#9aa0a6;">Name and profile picture</div></div>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:24px;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0; margin-top:2px;"><rect x="2" y="4" width="16" height="12" rx="2" stroke="#9aa0a6" stroke-width="1.5" fill="none"/><path d="M2 7l8 5 8-5" stroke="#9aa0a6" stroke-width="1.5" fill="none"/></svg>
+            <div><div style="font-size:14px; color:#e8eaed;" id="consentEmailDisplay">demo@delhiverymaps.com</div><div style="font-size:12px; color:#9aa0a6;">Email address</div></div>
+          </div>
+          <p style="font-size:12px; color:#9aa0a6; line-height:1.6; margin:0 0 8px;">Review Delhivery Maps's <a href="#" style="color:#8ab4f8; text-decoration:none;">Privacy Policy</a> and <a href="#" style="color:#8ab4f8; text-decoration:none;">Terms of Service</a> to understand how Delhivery Maps will process and protect your data.</p>
+          <p style="font-size:12px; color:#9aa0a6; line-height:1.6; margin:0 0 8px;">To make changes at any time, go to your <a href="#" style="color:#8ab4f8; text-decoration:none;">Google Account</a>.</p>
+          <p style="font-size:12px; color:#9aa0a6; line-height:1.6; margin:0 0 24px;">Learn more about <a href="#" style="color:#8ab4f8; text-decoration:none;">Sign in with Google</a>.</p>
+          <div style="display:flex; gap:12px; justify-content:flex-end;">
+            <button id="consentCancel" style="padding:10px 28px; background:transparent; border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#8ab4f8; font-family:'Noto Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer;">Cancel</button>
+            <button id="consentContinue" style="padding:10px 28px; background:#8ab4f8; border:none; border-radius:8px; color:#1a1a1a; font-family:'Noto Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer;">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var form = document.getElementById('signupForm');
+    var emailInput = document.getElementById('email');
+    var passInput = document.getElementById('password');
+
+    // Add error message element
+    function showError(input, msg) {
+      var existing = input.parentElement.querySelector('.signin-error');
+      if (existing) existing.remove();
+      var el = document.createElement('span');
+      el.className = 'signin-error';
+      el.textContent = msg;
+      el.style.cssText = 'display:block;font-size:12px;color:#ED1B36;margin-top:6px;';
+      input.parentElement.appendChild(el);
+      input.style.borderColor = '#ED1B36';
+    }
+
+    function clearError(input) {
+      var existing = input.parentElement.querySelector('.signin-error');
+      if (existing) existing.remove();
+      input.style.borderColor = '';
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearError(emailInput);
+      clearError(passInput);
+
+      var email = emailInput.value.trim();
+      var pass = passInput.value;
+
+      if (!email) { showError(emailInput, 'Email is required'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError(emailInput, 'Enter a valid email'); return; }
+      if (!pass) { showError(passInput, 'Password is required'); return; }
+      if (pass.length < 6) { showError(passInput, 'Password must be at least 6 characters'); return; }
+
+      // Save to localStorage (demo)
+      var users = JSON.parse(localStorage.getItem('dlv_users') || '{}');
+      users[email] = pass;
+      localStorage.setItem('dlv_users', JSON.stringify(users));
+      localStorage.setItem('dlv_logged_in', email);
+
+      // Success — redirect
+      window.location.href = 'index.html';
+    });
+
+    // Clear errors on input
+    emailInput.addEventListener('input', function() { clearError(emailInput); });
+    passInput.addEventListener('input', function() { clearError(passInput); });
+
+    // --- Google Sign-in Simulation ---
+    var googleBtn = document.getElementById('googleBtn');
+    var googleModal = document.getElementById('googleModal');
+    var googleClose = document.getElementById('googleClose');
+    var googleAccount1 = document.getElementById('googleAccount1');
+    var googleAccount2 = document.getElementById('googleAccount2');
+
+    googleBtn.addEventListener('click', function() {
+      googleModal.style.display = 'flex';
+    });
+
+    googleClose.addEventListener('click', function() {
+      googleModal.style.display = 'none';
+    });
+
+    googleModal.addEventListener('click', function(e) {
+      if (e.target === googleModal) googleModal.style.display = 'none';
+    });
+
+    // Hover effect
+    [googleAccount1, googleAccount2].forEach(function(el) {
+      el.addEventListener('mouseenter', function() { el.style.background = '#f5f5f5'; });
+      el.addEventListener('mouseleave', function() { el.style.background = 'transparent'; });
+    });
+
+    var selectedEmail = '';
+    var selectedName = '';
+
+    googleAccount1.addEventListener('click', function() {
+      selectedEmail = 'demo@delhiverymaps.com';
+      selectedName = 'Demo User';
+      showConsent(selectedEmail, 'D', '#ED1B36');
+    });
+
+    googleAccount2.addEventListener('click', function() {
+      var email = prompt('Enter your email:');
+      if (email && email.trim()) {
+        selectedEmail = email.trim();
+        selectedName = email.split('@')[0];
+        showConsent(selectedEmail, selectedEmail.charAt(0).toUpperCase(), '#4285F4');
+      }
+    });
+
+    // Consent screen
+    var googleConsent = document.getElementById('googleConsent');
+    var consentCancel = document.getElementById('consentCancel');
+    var consentContinue = document.getElementById('consentContinue');
+
+    function showConsent(email, initial, color) {
+      googleModal.style.display = 'none';
+      document.getElementById('consentAvatar').textContent = initial;
+      document.getElementById('consentAvatar').style.background = color;
+      document.getElementById('consentEmailText').textContent = email;
+      document.getElementById('consentEmailDisplay').textContent = email;
+      googleConsent.style.display = 'flex';
+    }
+
+    consentCancel.addEventListener('click', function() {
+      googleConsent.style.display = 'none';
+    });
+
+    consentContinue.addEventListener('click', function() {
+      localStorage.setItem('dlv_logged_in', selectedEmail);
+      localStorage.setItem('dlv_user_name', selectedName);
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
