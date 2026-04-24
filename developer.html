@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Docs — Delhivery Maps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=11">
+  <style>
+    * { font-family: 'Noto Sans', sans-serif; }
+    html { transition: opacity 0.25s ease; }
+    html.page-loading { opacity: 0; }
+    html.page-transitioning { opacity: 0; }
+
+    .dev-layout { display: flex; min-height: 100vh; background: #000; padding-top: 64px; }
+    /* Sidebar */
+    .dev-sidebar { width: 280px; flex-shrink: 0; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; border-right: 1px solid rgba(255,255,255,0.06); background: #0D0D0D; }
+    .dev-sidebar::-webkit-scrollbar { width: 3px; }
+    .dev-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+    /* Brand */
+    .dev-sidebar-brand { display: flex; align-items: center; gap: 12px; padding: 20px 16px 18px 40px; }
+    .dev-sidebar-brand-icon { width: 34px; height: 34px; background: linear-gradient(135deg, #FF4D6D, #FF2E63); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .dev-sidebar-brand-name { font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; }
+
+    /* Quick links */
+    .dev-sidebar-quicklinks { padding: 0 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 4px; }
+    .dev-sidebar-quicklink { display: flex; align-items: center; gap: 12px; padding: 9px 8px; border-radius: 6px; text-decoration: none; font-family: 'Noto Sans', sans-serif; font-size: 14px; color: rgba(255,255,255,0.6); transition: background 0.15s ease, color 0.15s ease; }
+    .dev-sidebar-quicklink:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.9); }
+    .dev-sidebar-quicklink-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* Nav sections */
+    .dev-nav-section { padding: 24px 16px 8px 40px; }
+    .dev-nav-label { font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; padding: 0 8px 16px 0; display: block; }
+    .dev-nav-link { display: block; font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; padding: 11px 8px 11px 0; text-decoration: none; transition: background 0.15s ease, color 0.15s ease; border-radius: 6px; border-left: none; margin-left: 0; line-height: 1.4; }
+    .dev-nav-link:hover { background: rgba(255,255,255,0.05); color: #ffffff; }
+    .dev-nav-link.dev-nav-child:hover { color: rgba(255,255,255,0.85); }
+    .dev-nav-link.is-active { background: rgba(255,77,109,0.1); color: #FF4D6D; font-weight: 700; padding-left: 8px; }
+    .dev-nav-link.dev-nav-child { padding-left: 0; font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.45); }
+
+    /* Collapsible group */
+    .dev-nav-group { display: flex; justify-content: space-between; align-items: center; width: 100%; background: none; border: none; cursor: pointer; padding: 11px 8px 11px 0; font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; transition: background 0.15s ease, color 0.15s ease; border-radius: 6px; line-height: 1.4; }
+    .dev-nav-group:hover { background: rgba(255,255,255,0.05); color: #ffffff; }
+    .dev-nav-group[aria-expanded="true"] { color: #ffffff; }
+    .dev-nav-chevron { display: none; }
+    .dev-nav-children { overflow: hidden; max-height: 600px; }
+
+    /* Main content */
+    .dev-main { flex: 1; min-width: 0; padding: 40px 72px; }
+    .dev-main h1 { font-size: 32px; font-weight: 700; color: #fff; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .dev-main h2 { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.01em; margin: 48px 0 14px; padding-top: 48px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .dev-main h2:first-of-type { border-top: none; padding-top: 0; margin-top: 28px; }
+    .dev-main h3 { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.85); margin: 24px 0 8px; }
+    .dev-main p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 14px; }
+    .dev-main a { color: #FF4D6D; text-decoration: none; }
+    .dev-main a:hover { text-decoration: underline; }
+    .dev-main ul, .dev-main ol { padding-left: 20px; margin-bottom: 14px; }
+    .dev-main li { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 4px; }
+    .dev-main code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; background: rgba(255,255,255,0.07); padding: 2px 6px; border-radius: 4px; color: rgba(255,255,255,0.8); }
+
+    /* Code blocks */
+    .dev-code { background: #0D0D0D; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 20px 24px; margin: 16px 0 24px; overflow-x: auto; }
+    .dev-code pre { margin: 0; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; color: #e6edf3; line-height: 1.7; white-space: pre; }
+    .dev-code .token-key { color: #79c0ff; }
+    .dev-code .token-str { color: #ffa657; }
+    .dev-code .token-num { color: #79c0ff; }
+    .dev-code .token-comment { color: rgba(255,255,255,0.3); }
+
+    /* API endpoint cards */
+    .dev-endpoint { display: flex; align-items: flex-start; gap: 16px; background: #0A0A0A; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 20px 24px; margin-bottom: 12px; }
+    .dev-method { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+    .dev-method--get { background: rgba(255,77,109,0.12); color: #FF4D6D; }
+    .dev-method--post { background: rgba(255,77,109,0.12); color: #FF4D6D; }
+    .dev-endpoint-path { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 4px; }
+    .dev-endpoint-desc { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+    /* Steps */
+    .dev-steps { counter-reset: step; }
+    .dev-step { display: flex; gap: 20px; margin-bottom: 28px; }
+    .dev-step-num { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,77,109,0.1); border: 1px solid rgba(255,77,109,0.3); color: #FF4D6D; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .dev-step-content h3 { margin-top: 4px; }
+
+    /* Badge - removed */
+    .dev-badge { display: none; }
+
+    /* Feature cards */
+    .dev-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 28px 0 40px; }
+    .dev-card { background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 20px; }
+    .dev-card-icon { width: 40px; height: 40px; background: rgba(255,77,109,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .dev-card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .dev-card-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; margin: 0; }
+    @media (max-width: 700px) { .dev-cards { grid-template-columns: 1fr; } }
+
+    /* Right TOC panel */
+    .dev-toc { width: 300px; flex-shrink: 0; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; padding: 28px 20px; border-left: 1px solid rgba(255,255,255,0.06); }
+    .dev-toc::-webkit-scrollbar { width: 3px; }
+    .dev-toc::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+    .dev-toc-header { display: flex; align-items: center; gap: 8px; font-family: 'Noto Sans', sans-serif; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 14px; }
+    .dev-toc-link { display: block; font-family: 'Noto Sans', sans-serif; font-size: 12px; color: rgba(255,255,255,0.4); padding: 4px 0 4px 10px; text-decoration: none; border-left: 2px solid transparent; transition: color 0.15s ease, border-color 0.15s ease; line-height: 1.5; margin-bottom: 1px; }
+    .dev-toc-link:hover { color: rgba(255,255,255,0.75); }
+    .dev-toc-link.is-active { color: #FF4D6D; border-left-color: #FF4D6D; }
+    .dev-toc-link.dev-toc-sub { padding-left: 20px; font-size: 11px; color: rgba(255,255,255,0.3); }
+    .dev-toc-link.dev-toc-sub:hover { color: rgba(255,255,255,0.6); }
+    .dev-toc-link.dev-toc-sub.is-active { color: #FF4D6D; border-left-color: #FF4D6D; }
+    @media (max-width: 1200px) { .dev-toc { display: none; } }
+
+    @media (max-width: 900px) {
+      .dev-sidebar { display: none; }
+      .dev-main { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M14 2L4 24H10L14 16L18 24H24L14 2Z" stroke="url(#logo-grad)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+          <path d="M8 20L14 8L20 20" stroke="url(#logo-grad)" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <defs><linearGradient id="logo-grad" x1="4" y1="2" x2="24" y2="24"><stop stop-color="#FF4D6D"/><stop offset="1" stop-color="#FF4D6D"/></linearGradient></defs>
+        </svg>
+        Delhivery Maps
+      </a>
+      <nav class="header__nav" aria-label="Main navigation">
+        <a href="index.html" class="header__nav-link">Home</a>
+        <a href="index.html#showcase" class="header__nav-link">Product</a>
+        <a href="index.html#pricing" class="header__nav-link">Pricing</a>
+        <a href="developer.html" class="header__nav-link header__nav-link--active">Developer</a>
+        <a href="support.html" class="header__nav-link">Support</a>
+      </nav>
+      <a href="#" class="header__signin">Sign in</a>
+    </div>
+  </header>
+
+  <div class="dev-layout">
+
+    <!-- Sidebar -->
+    <aside class="dev-sidebar">
+      <!-- Brand -->
+      <div class="dev-sidebar-brand">
+        <div class="dev-sidebar-brand-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1L2 5V13L9 17L16 13V5L9 1Z" stroke="#fff" stroke-width="1.5" fill="none"/><path d="M2 5L9 9M9 9L16 5M9 9V17" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <span class="dev-sidebar-brand-name">Documentation</span>
+      </div>
+
+      <div class="dev-nav-section">
+        <a href="#overview" class="dev-nav-link is-active">Overview</a>
+        <a href="#authentication" class="dev-nav-link">Authentication</a>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Routing APIs</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#directions" class="dev-nav-link dev-nav-child">Directions API</a>
+          <a href="#directions-basic" class="dev-nav-link dev-nav-child">Directions Basic API</a>
+          <a href="#distance-matrix" class="dev-nav-link dev-nav-child">Distance Matrix API</a>
+          <a href="#distance-matrix-basic" class="dev-nav-link dev-nav-child">Distance Matrix Basic API</a>
+          <a href="#route-optimizer" class="dev-nav-link dev-nav-child">Route Optimizer API</a>
+          <a href="#fleet-planner" class="dev-nav-link dev-nav-child">Fleet Planner API</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Roads APIs</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#snap-to-road" class="dev-nav-link dev-nav-child">Snap To Road API</a>
+          <a href="#nearest-roads" class="dev-nav-link dev-nav-child">Nearest Roads API</a>
+          <a href="#speed-limits" class="dev-nav-link dev-nav-child">Speed Limits API</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Places APIs</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#autocomplete" class="dev-nav-link dev-nav-child">Autocomplete API</a>
+          <a href="#place-details" class="dev-nav-link dev-nav-child">Place Details API</a>
+          <a href="#advance-place-details" class="dev-nav-link dev-nav-child">Advance Place Details API</a>
+          <a href="#nearby-search" class="dev-nav-link dev-nav-child">Nearby Search API</a>
+          <a href="#advance-nearby-search" class="dev-nav-link dev-nav-child">Advance Nearby Search API</a>
+          <a href="#photo-api" class="dev-nav-link dev-nav-child">Photo API</a>
+          <a href="#text-search" class="dev-nav-link dev-nav-child">Text Search API</a>
+          <a href="#address-validation" class="dev-nav-link dev-nav-child">Address Validation API</a>
+          <a href="#geofencing" class="dev-nav-link dev-nav-child">Geofencing API</a>
+          <a href="#elevation" class="dev-nav-link dev-nav-child">Elevation API</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Geocoding</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#geocoding" class="dev-nav-link dev-nav-child">Geocoding API</a>
+          <a href="#reverse-geocoding" class="dev-nav-link dev-nav-child">Reverse Geocoding API</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Map Tiles</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#tiles-2d" class="dev-nav-link dev-nav-child">2D Tiles</a>
+          <a href="#tiles-3d" class="dev-nav-link dev-nav-child">3D Tiles</a>
+          <a href="#tiles-satellite" class="dev-nav-link dev-nav-child">Satellite Tiles</a>
+          <a href="#style-editor" class="dev-nav-link dev-nav-child">Style Editor</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Navigation SDKs</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#nav-android" class="dev-nav-link dev-nav-child">Navigation SDK - Android</a>
+          <a href="#nav-ios" class="dev-nav-link dev-nav-child">Navigation SDK - iOS</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Map SDKs</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#map-sdk-ios" class="dev-nav-link dev-nav-child">Map SDK - iOS</a>
+          <a href="#map-sdk-android" class="dev-nav-link dev-nav-child">Map SDK - Android</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <button class="dev-nav-group" aria-expanded="false">
+          <span>Places SDKs</span><span class="dev-nav-chevron">›</span>
+        </button>
+        <div class="dev-nav-children">
+          <a href="#places-sdk-android" class="dev-nav-link dev-nav-child">Places SDK - Android</a>
+          <a href="#places-sdk-ios" class="dev-nav-link dev-nav-child">Places SDK - iOS</a>
+        </div>
+      </div>
+
+      <div class="dev-nav-section">
+        <a href="#web-sdk" class="dev-nav-link">Web SDK</a>
+        <a href="#mcp" class="dev-nav-link">Delhivery Maps MCP</a>
+        <a href="#street-view" class="dev-nav-link">Street View</a>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="dev-main">
+
+      <h1 id="overview">Delhivery Maps API Documentation</h1>
+      <p>Welcome to the Delhivery Maps developer documentation. These APIs provide powerful tools to integrate mapping, routing, and location intelligence into your applications — built specifically for Indian roads, addresses, and scale.</p>
+      <p>With Delhivery Maps APIs you can display maps, generate optimized delivery routes, geocode addresses, search for places, and power real-time location tracking across India's 18,800+ pin codes.</p>
+
+      <!-- Feature cards -->
+      <div class="dev-cards">
+        <div class="dev-card">
+          <div class="dev-card-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L4 6V16L11 20L18 16V6L11 2Z" stroke="#FF4D6D" stroke-width="1.5" fill="none"/><path d="M4 6L11 10M11 10L18 6M11 10V20" stroke="#FF4D6D" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <h3 class="dev-card-title">Route</h3>
+          <p class="dev-card-desc">Optimized directions, distance matrix, fleet planning, and route optimization across India's road network.</p>
+        </div>
+        <div class="dev-card">
+          <div class="dev-card-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="9" r="5" stroke="#FF4D6D" stroke-width="1.5" fill="none"/><path d="M11 14C7 14 4 16 4 18H18C18 16 15 14 11 14Z" stroke="#FF4D6D" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <h3 class="dev-card-title">Geocode</h3>
+          <p class="dev-card-desc">Convert addresses to coordinates and back with 98%+ accuracy. Handles Indian address formats natively.</p>
+        </div>
+        <div class="dev-card">
+          <div class="dev-card-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="9" cy="9" r="6" stroke="#FF4D6D" stroke-width="1.5" fill="none"/><path d="M13.5 13.5L19 19" stroke="#FF4D6D" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="dev-card-title">Search</h3>
+          <p class="dev-card-desc">Autocomplete, nearby search, place details, and text search across 18,800+ pin codes.</p>
+        </div>
+        <div class="dev-card">
+          <div class="dev-card-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="18" height="18" rx="2" stroke="#FF4D6D" stroke-width="1.5" fill="none"/><path d="M2 8H20M8 2V20" stroke="#FF4D6D" stroke-width="1" opacity="0.5"/></svg>
+          </div>
+          <h3 class="dev-card-title">Map Tiles</h3>
+          <p class="dev-card-desc">2D, 3D, and satellite tiles with a style editor for custom-branded map experiences.</p>
+        </div>
+        <div class="dev-card">
+          <div class="dev-card-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2C7 2 4 5 4 9C4 14 11 20 11 20S18 14 18 9C18 5 15 2 11 2Z" stroke="#FF4D6D" stroke-width="1.5" fill="none"/><circle cx="11" cy="9" r="2.5" stroke="#FF4D6D" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <h3 class="dev-card-title">Places</h3>
+          <p class="dev-card-desc">Rich POI data, address validation, geofencing, elevation, and photo APIs for location-aware apps.</p>
+        </div>
+        <div class="dev-card">
+          <div class="dev-card-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="#FF4D6D" stroke-width="1.5" fill="none"/><path d="M3 8H19M8 4V8" stroke="#FF4D6D" stroke-width="1" opacity="0.5"/><circle cx="11" cy="13" r="2" stroke="#FF4D6D" stroke-width="1.2" fill="none"/></svg>
+          </div>
+          <h3 class="dev-card-title">SDKs</h3>
+          <p class="dev-card-desc">Native Android, iOS, and Web SDKs for maps, navigation, and places with drop-in UI components.</p>
+        </div>
+      </div>
+
+      <h2 id="quickstart">Quickstart</h2>
+      <p>Get up and running in minutes. Follow these steps to make your first API call.</p>
+
+      <div class="dev-steps">
+        <div class="dev-step">
+          <div class="dev-step-num">1</div>
+          <div class="dev-step-content">
+            <h3>Create an account</h3>
+            <p>Sign up at <a href="#">maps.delhivery.com</a> to get access to the developer dashboard.</p>
+          </div>
+        </div>
+        <div class="dev-step">
+          <div class="dev-step-num">2</div>
+          <div class="dev-step-content">
+            <h3>Get your API key</h3>
+            <p>From the dashboard, create a new project and generate your API key. Keep it secure — never expose it in client-side code.</p>
+          </div>
+        </div>
+        <div class="dev-step">
+          <div class="dev-step-num">3</div>
+          <div class="dev-step-content">
+            <h3>Make your first request</h3>
+            <p>Use your API key to authenticate requests. Here's a simple geocoding example:</p>
+            <div class="dev-code">
+              <pre><span class="token-comment"># Geocode an address</span>
+curl -X GET \
+  "https://api.delhiverymaps.com/v1/geocode?address=Koramangala+Bengaluru" \
+  -H <span class="token-str">"Authorization: Bearer YOUR_API_KEY"</span></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="authentication">Authentication</h2>
+      <p>All API requests require authentication using a Bearer token. Include your API key in the <code>Authorization</code> header of every request.</p>
+      <div class="dev-code">
+        <pre>Authorization: Bearer <span class="token-str">YOUR_API_KEY</span></pre>
+      </div>
+      <p>For OAuth 2.0 flows, obtain a client key and secret from the dashboard and exchange them for an access token.</p>
+
+      <h2 id="multilingual">Multilingual Language Support</h2>
+      <p>Delhivery Maps APIs support responses in 30+ languages including all major Indian regional languages. Pass the <code>language</code> parameter to receive results in your preferred language.</p>
+      <div class="dev-code">
+        <pre>GET /v1/geocode?address=<span class="token-str">Koramangala</span>&language=<span class="token-str">hi</span>  <span class="token-comment"># Hindi</span>
+GET /v1/geocode?address=<span class="token-str">Koramangala</span>&language=<span class="token-str">kn</span>  <span class="token-comment"># Kannada</span>
+GET /v1/geocode?address=<span class="token-str">Koramangala</span>&language=<span class="token-str">ta</span>  <span class="token-comment"># Tamil</span></pre>
+      </div>
+      <p>Supported languages include: English (en), Hindi (hi), Kannada (kn), Tamil (ta), Telugu (te), Bengali (bn), Marathi (mr), Gujarati (gu), Malayalam (ml), Punjabi (pa), and more.</p>
+
+      <h2 id="directions">Directions API <span class="dev-badge">REST</span></h2>
+      <p>Calculate optimized routes with turn-by-turn navigation. Built on real delivery data for accurate ETAs across India's road network.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/directions</div>
+          <div class="dev-endpoint-desc">Get turn-by-turn directions between origin and destination with waypoints</div>
+        </div>
+      </div>
+      <div class="dev-code">
+        <pre>{
+  <span class="token-key">"origin"</span>: <span class="token-str">"12.9716,77.5946"</span>,
+  <span class="token-key">"destination"</span>: <span class="token-str">"12.9352,77.6245"</span>,
+  <span class="token-key">"waypoints"</span>: [<span class="token-str">"12.9500,77.6100"</span>],
+  <span class="token-key">"mode"</span>: <span class="token-str">"driving"</span>,
+  <span class="token-key">"alternatives"</span>: <span class="token-num">true</span>,
+  <span class="token-key">"avoid"</span>: [<span class="token-str">"tolls"</span>, <span class="token-str">"highways"</span>]
+}</pre>
+      </div>
+
+      <h2 id="directions-basic">Directions Basic API <span class="dev-badge">REST</span></h2>
+      <p>A lightweight version of the Directions API for simple A-to-B routing without waypoints. Ideal for high-volume, low-latency use cases.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/directions/basic</div>
+          <div class="dev-endpoint-desc">Simple point-to-point routing with minimal response payload</div>
+        </div>
+      </div>
+
+      <h2 id="distance-matrix">Distance Matrix API <span class="dev-badge">REST</span></h2>
+      <p>Calculate travel times and distances between multiple origins and destinations simultaneously. Essential for logistics optimization and delivery planning.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--post">POST</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/distance-matrix</div>
+          <div class="dev-endpoint-desc">Compute an N×M matrix of travel times and distances</div>
+        </div>
+      </div>
+      <div class="dev-code">
+        <pre>{
+  <span class="token-key">"origins"</span>: [<span class="token-str">"12.9716,77.5946"</span>, <span class="token-str">"13.0827,80.2707"</span>],
+  <span class="token-key">"destinations"</span>: [<span class="token-str">"12.9352,77.6245"</span>, <span class="token-str">"12.8456,77.6603"</span>],
+  <span class="token-key">"mode"</span>: <span class="token-str">"driving"</span>
+}</pre>
+      </div>
+
+      <h2 id="distance-matrix-basic">Distance Matrix Basic API <span class="dev-badge">REST</span></h2>
+      <p>A simplified distance matrix for 1-to-many or many-to-1 routing scenarios with reduced response size for faster processing.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/distance-matrix/basic</div>
+          <div class="dev-endpoint-desc">Lightweight distance matrix for simple hub-and-spoke routing</div>
+        </div>
+      </div>
+
+      <h2 id="route-optimizer">Route Optimizer API <span class="dev-badge">REST</span></h2>
+      <p>Solve the Vehicle Routing Problem (VRP) to find the most efficient sequence of stops for one or more vehicles. Reduces total distance and delivery time.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--post">POST</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/route-optimizer</div>
+          <div class="dev-endpoint-desc">Optimize multi-stop routes for single or multiple vehicles</div>
+        </div>
+      </div>
+
+      <h2 id="fleet-planner">Fleet Planner API <span class="dev-badge">REST</span></h2>
+      <p>Advanced fleet management with capacity constraints, time windows, driver shifts, and vehicle types. Built for enterprise logistics operations.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--post">POST</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/fleet-planner</div>
+          <div class="dev-endpoint-desc">Plan optimal routes across an entire fleet with constraints</div>
+        </div>
+      </div>
+
+      <h2 id="roads">Roads APIs <span class="dev-badge">REST</span></h2>
+      <p>Snap GPS coordinates to the nearest road, get speed limits, and identify road segments. Useful for fleet tracking and telematics applications.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/roads/snap-to-roads</div>
+          <div class="dev-endpoint-desc">Snap a path of GPS coordinates to the road network</div>
+        </div>
+      </div>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/roads/speed-limits</div>
+          <div class="dev-endpoint-desc">Get speed limit information for road segments</div>
+        </div>
+      </div>
+
+      <h2 id="places">Places APIs <span class="dev-badge">REST</span></h2>
+      <p>Search for businesses, landmarks, and points of interest across India. Supports category-based search, nearby search, and place details.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/places/search</div>
+          <div class="dev-endpoint-desc">Search for places by name, category, or keyword</div>
+        </div>
+      </div>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/places/nearby</div>
+          <div class="dev-endpoint-desc">Find places near a given location within a radius</div>
+        </div>
+      </div>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/places/details</div>
+          <div class="dev-endpoint-desc">Get detailed information about a specific place</div>
+        </div>
+      </div>
+
+      <h2 id="geocoding">Geocoding <span class="dev-badge">REST</span></h2>
+      <p>Convert addresses to coordinates and back with 98%+ accuracy. Handles Indian address formats, landmarks, and pin codes natively.</p>
+
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/geocode</div>
+          <div class="dev-endpoint-desc">Forward geocoding — address to coordinates</div>
+        </div>
+      </div>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/reverse-geocode</div>
+          <div class="dev-endpoint-desc">Reverse geocoding — coordinates to address</div>
+        </div>
+      </div>
+
+      <h3>Example response</h3>
+      <div class="dev-code">
+        <pre>{
+  <span class="token-key">"status"</span>: <span class="token-str">"OK"</span>,
+  <span class="token-key">"results"</span>: [{
+    <span class="token-key">"formatted_address"</span>: <span class="token-str">"Koramangala, Bengaluru, Karnataka 560034"</span>,
+    <span class="token-key">"geometry"</span>: {
+      <span class="token-key">"location"</span>: {
+        <span class="token-key">"lat"</span>: <span class="token-num">12.9352</span>,
+        <span class="token-key">"lng"</span>: <span class="token-num">77.6245</span>
+      }
+    },
+    <span class="token-key">"pin_code"</span>: <span class="token-str">"560034"</span>,
+    <span class="token-key">"confidence"</span>: <span class="token-num">0.98</span>
+  }]
+}</pre>
+      </div>
+
+      <h2 id="autosuggest">Autosuggest API <span class="dev-badge">REST</span></h2>
+      <p>Real-time, context-aware location suggestions that predict user intent with every keystroke. Optimized for Indian place names, landmarks, and addresses.</p>
+
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/autosuggest</div>
+          <div class="dev-endpoint-desc">Get location suggestions as the user types</div>
+        </div>
+      </div>
+
+      <div class="dev-code">
+        <pre><span class="token-comment"># Example: suggest locations for "Koramang"</span>
+GET /v1/autosuggest?query=<span class="token-str">Koramang</span>&limit=<span class="token-num">5</span>&location=<span class="token-str">12.9716,77.5946</span></pre>
+      </div>
+
+      <h2 id="search">Search API <span class="dev-badge">REST</span></h2>
+      <p>Semantic intent analysis that distinguishes addresses from place categories, delivering precise location results instantly.</p>
+
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/search</div>
+          <div class="dev-endpoint-desc">Search for places, addresses, or categories</div>
+        </div>
+      </div>
+
+      <h2 id="map-tiles">Map Tiles <span class="dev-badge">REST</span></h2>
+      <p>Custom-styled, cross-platform map tiles that transform raw coordinates into interactive navigation experiences. Available in raster and vector formats.</p>
+
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/tiles/{z}/{x}/{y}</div>
+          <div class="dev-endpoint-desc">Fetch map tile at zoom level z, tile x, tile y</div>
+        </div>
+      </div>
+
+      <h2 id="map-sdks">Map SDKs</h2>
+      <p>Native SDKs for embedding interactive maps in Android and iOS applications with full support for custom styles, markers, and overlays.</p>
+      <ul>
+        <li><strong>Android SDK</strong> — Available via Maven Central: <code>com.delhivery:maps-android:1.0.0</code></li>
+        <li><strong>iOS SDK</strong> — Available via Swift Package Manager</li>
+      </ul>
+
+      <h2 id="places-sdks">Places SDKs</h2>
+      <p>Client-side SDKs for integrating autosuggest, search, and place details directly into your mobile apps with built-in UI components.</p>
+      <ul>
+        <li><strong>Android Places SDK</strong> — Drop-in search bar with autosuggest</li>
+        <li><strong>iOS Places SDK</strong> — Native SwiftUI and UIKit components</li>
+      </ul>
+
+      <h2 id="web-sdk">Web SDK</h2>
+      <p>A JavaScript SDK for embedding interactive maps in web applications. Compatible with React, Vue, Angular, and vanilla JS.</p>
+      <div class="dev-code">
+        <pre><span class="token-comment">// Install</span>
+npm install @delhivery/maps-js
+
+<span class="token-comment">// Initialize</span>
+import { DelhiveryMaps } from <span class="token-str">'@delhivery/maps-js'</span>;
+
+const map = new DelhiveryMaps.Map(<span class="token-str">'map-container'</span>, {
+  <span class="token-key">center</span>: [<span class="token-num">12.9716</span>, <span class="token-num">77.5946</span>],
+  <span class="token-key">zoom</span>: <span class="token-num">13</span>,
+  <span class="token-key">apiKey</span>: <span class="token-str">'YOUR_API_KEY'</span>
+});</pre>
+      </div>
+
+      <h2 id="mcp">Delhivery Maps MCP</h2>
+      <p>The Delhivery Maps Model Context Protocol (MCP) server lets AI assistants query mapping data, geocode addresses, and plan routes directly from your AI workflow — no manual API calls needed.</p>
+      <div class="dev-code">
+        <pre><span class="token-comment"># Add to your MCP config</span>
+{
+  <span class="token-key">"mcpServers"</span>: {
+    <span class="token-key">"delhivery-maps"</span>: {
+      <span class="token-key">"command"</span>: <span class="token-str">"uvx"</span>,
+      <span class="token-key">"args"</span>: [<span class="token-str">"delhivery-maps-mcp@latest"</span>],
+      <span class="token-key">"env"</span>: { <span class="token-key">"DELHIVERY_API_KEY"</span>: <span class="token-str">"YOUR_API_KEY"</span> }
+    }
+  }
+}</pre>
+      </div>
+
+      <h2 id="street-view">Street View</h2>
+      <p>Embed 360° street-level imagery for any location in India. Useful for address verification, delivery confirmation, and location context.</p>
+      <div class="dev-endpoint">
+        <span class="dev-method dev-method--get">GET</span>
+        <div>
+          <div class="dev-endpoint-path">/v1/streetview</div>
+          <div class="dev-endpoint-desc">Get street view imagery URL for a given location</div>
+        </div>
+      </div>
+
+      <h2 id="errors">Error Codes</h2>
+      <p>All errors follow a consistent format with an HTTP status code and a JSON body.</p>
+      <ul>
+        <li><strong>400</strong> — Bad Request: missing or invalid parameters</li>
+        <li><strong>401</strong> — Unauthorized: invalid or missing API key</li>
+        <li><strong>403</strong> — Forbidden: quota exceeded or plan restriction</li>
+        <li><strong>404</strong> — Not Found: resource does not exist</li>
+        <li><strong>429</strong> — Too Many Requests: rate limit exceeded</li>
+        <li><strong>500</strong> — Internal Server Error: contact support</li>
+      </ul>
+
+      <h2 id="rate-limits">Rate Limits</h2>
+      <p>To ensure fair usage and system stability, rate limits are enforced per API key. If you exceed the limit, you'll receive a <code>429</code> response.</p>
+      <ul>
+        <li><strong>Free tier:</strong> 1,000 requests/day, 10 requests/second</li>
+        <li><strong>Professional:</strong> 100,000 requests/day, 100 requests/second</li>
+        <li><strong>Enterprise:</strong> Custom limits — contact <a href="mailto:sales@delhiverymaps.com">sales@delhiverymaps.com</a></li>
+      </ul>
+
+      <h2 id="sdks">SDKs & Libraries</h2>
+      <p>Official SDKs are available for the most popular platforms:</p>
+      <ul>
+        <li><strong>JavaScript / Node.js</strong> — <code>npm install @delhivery/maps-sdk</code></li>
+        <li><strong>Python</strong> — <code>pip install delhivery-maps</code></li>
+        <li><strong>Android</strong> — Available via Maven Central</li>
+        <li><strong>iOS</strong> — Available via Swift Package Manager</li>
+      </ul>
+      <p>For questions or support, contact <a href="mailto:support@delhiverymaps.com">support@delhiverymaps.com</a>.</p>
+
+    </main>
+
+    <!-- Right TOC Panel -->
+    <aside class="dev-toc">
+      <div class="dev-toc-header">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3H12M2 7H9M2 11H11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        On this page
+      </div>
+      <a href="#overview" class="dev-toc-link is-active">Delhivery Maps API Docs</a>
+      <a href="#quickstart" class="dev-toc-link">🎯 Quickstart</a>
+      <a href="#authentication" class="dev-toc-link">⚠️ Authentication</a>
+      <a href="#multilingual" class="dev-toc-link">🌐 Multilingual Support</a>
+      <a href="#directions" class="dev-toc-link">🚀 Routing APIs</a>
+      <a href="#directions" class="dev-toc-link dev-toc-sub">Directions API</a>
+      <a href="#directions-basic" class="dev-toc-link dev-toc-sub">Directions Basic API</a>
+      <a href="#distance-matrix" class="dev-toc-link dev-toc-sub">Distance Matrix API</a>
+      <a href="#distance-matrix-basic" class="dev-toc-link dev-toc-sub">Distance Matrix Basic API</a>
+      <a href="#route-optimizer" class="dev-toc-link dev-toc-sub">Route Optimizer API</a>
+      <a href="#fleet-planner" class="dev-toc-link dev-toc-sub">Fleet Planner API</a>
+      <a href="#roads" class="dev-toc-link">🛣️ Roads APIs</a>
+      <a href="#snap-to-road" class="dev-toc-link dev-toc-sub">Snap To Road API</a>
+      <a href="#nearest-roads" class="dev-toc-link dev-toc-sub">Nearest Roads API</a>
+      <a href="#speed-limits" class="dev-toc-link dev-toc-sub">Speed Limits API</a>
+      <a href="#places" class="dev-toc-link">📍 Places APIs</a>
+      <a href="#autocomplete" class="dev-toc-link dev-toc-sub">Autocomplete API</a>
+      <a href="#place-details" class="dev-toc-link dev-toc-sub">Place Details API</a>
+      <a href="#nearby-search" class="dev-toc-link dev-toc-sub">Nearby Search API</a>
+      <a href="#text-search" class="dev-toc-link dev-toc-sub">Text Search API</a>
+      <a href="#address-validation" class="dev-toc-link dev-toc-sub">Address Validation API</a>
+      <a href="#geofencing" class="dev-toc-link dev-toc-sub">Geofencing API</a>
+      <a href="#elevation" class="dev-toc-link dev-toc-sub">Elevation API</a>
+      <a href="#geocoding" class="dev-toc-link">🗺️ Geocoding</a>
+      <a href="#geocoding" class="dev-toc-link dev-toc-sub">Geocoding API</a>
+      <a href="#reverse-geocoding" class="dev-toc-link dev-toc-sub">Reverse Geocoding API</a>
+      <a href="#map-tiles" class="dev-toc-link">🧩 Map Tiles</a>
+      <a href="#map-sdks" class="dev-toc-link">📱 Map SDKs</a>
+      <a href="#places-sdks" class="dev-toc-link">🔍 Places SDKs</a>
+      <a href="#web-sdk" class="dev-toc-link">🌐 Web SDK</a>
+      <a href="#mcp" class="dev-toc-link">🤖 Delhivery Maps MCP</a>
+      <a href="#street-view" class="dev-toc-link">📷 Street View</a>
+      <a href="#errors" class="dev-toc-link">🛠️ Error Codes</a>
+      <a href="#rate-limits" class="dev-toc-link">⚡ Rate Limits</a>
+      <a href="#sdks" class="dev-toc-link">📦 SDKs</a>
+    </aside>
+
+  </div>
+
+</body>
+</html>
+
+<script>
+  // Page transition fade-in
+  document.documentElement.classList.add('page-loading');
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { document.documentElement.classList.remove('page-loading'); });
+  });
+  // Fade-out on nav clicks
+  document.querySelectorAll('a[href]').forEach(function(a) {
+    var href = a.getAttribute('href');
+    if (href && !href.startsWith('#') && !href.startsWith('mailto')) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.documentElement.classList.add('page-transitioning');
+        setTimeout(function() { window.location.href = href; }, 250);
+      });
+    }
+  });
+
+  // Collapsible sidebar groups
+  document.querySelectorAll('.dev-nav-group').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var children = btn.nextElementSibling;
+      var isOpen = children.classList.contains('is-open');
+      children.classList.toggle('is-open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // Highlight active sidebar + TOC links on scroll
+  const sections = document.querySelectorAll('.dev-main [id]');
+  const navLinks = document.querySelectorAll('.dev-nav-link');
+  const tocLinks = document.querySelectorAll('.dev-toc-link');
+
+  window.addEventListener('scroll', function() {
+    let current = '';
+    sections.forEach(function(s) {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+
+    navLinks.forEach(function(link) {
+      link.classList.remove('is-active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('is-active');
+        var parent = link.closest('.dev-nav-children');
+        if (parent && !parent.classList.contains('is-open')) {
+          parent.classList.add('is-open');
+          var groupBtn = parent.previousElementSibling;
+          if (groupBtn) groupBtn.setAttribute('aria-expanded', 'true');
+        }
+      }
+    });
+
+    tocLinks.forEach(function(link) {
+      link.classList.remove('is-active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('is-active');
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>

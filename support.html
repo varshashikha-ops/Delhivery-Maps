@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Delhivery Maps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    html { transition: opacity 0.25s ease; }
+    html.page-loading { opacity: 0; }
+    html.page-transitioning { opacity: 0; }
+    .support { padding: 160px 0 var(--section-padding-y); background: #000; min-height: 100vh; position: relative; overflow: hidden; }
+    .support__bg { position: absolute; inset: 0; z-index: 0; }
+    .support__mesh { width: 100%; height: 100%; background: radial-gradient(ellipse at 50% 30%, rgba(255, 77, 109, 0.18) 0%, transparent 55%), radial-gradient(ellipse at 40% 40%, rgba(180, 30, 60, 0.12) 0%, transparent 50%), radial-gradient(ellipse at 60% 35%, rgba(120, 20, 50, 0.1) 0%, transparent 45%); background-size: 200% 200%; animation: meshMove 15s ease infinite; }
+    .support__dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px); background-size: 24px 24px; mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 65%); -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 65%); }
+    .support .container { position: relative; z-index: 1; }
+    @keyframes meshMove { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+    .support__header { text-align: center; margin-bottom: 56px; }
+    .support__title { font-family: var(--font-heading); font-size: 48px; font-weight: 700; color: #fff; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .support__desc { font-family: var(--font-body); font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 900px; margin: 0 auto; }
+    .support__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .support__card { background: #0A0A0A; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 36px 32px; display: flex; flex-direction: column; gap: 14px; min-height: 320px; }
+    .support__card-icon { margin-bottom: 8px; }
+    .support__card-title { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: #fff; }
+    .support__card-desc { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.6; }
+    .support__card-email { font-family: var(--font-body); font-size: 14px; color: #FF4D6D; text-decoration: underline; text-underline-offset: 3px; }
+    .support__card-email:hover { color: #FF4D6D; opacity: 0.8; }
+    .support__card-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: #FF4D6D; color: #fff; border-radius: 6px; font-family: var(--font-body); font-size: 14px; font-weight: 500; text-decoration: none; width: fit-content; margin-top: 8px; transition: background 0.2s ease; }
+    .support__card-btn:hover { background: #e8435f; color: #fff; }
+    .support__back { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; margin-bottom: 40px; transition: color 0.2s ease; }
+    .support__back:hover { color: #fff; }
+    @media (max-width: 768px) {
+      .support__cards { grid-template-columns: 1fr; }
+      .support__title { font-size: 36px; }
+      .support { padding: 120px 0 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M14 2L4 24H10L14 16L18 24H24L14 2Z" stroke="url(#logo-grad)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+          <path d="M8 20L14 8L20 20" stroke="url(#logo-grad)" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <defs><linearGradient id="logo-grad" x1="4" y1="2" x2="24" y2="24"><stop stop-color="#FF4D6D"/><stop offset="1" stop-color="#FF4D6D"/></linearGradient></defs>
+        </svg>
+        Delhivery Maps
+      </a>
+      <nav class="header__nav" aria-label="Main navigation">
+        <a href="index.html" class="header__nav-link">Home</a>
+        <a href="index.html#showcase" class="header__nav-link">Product</a>
+        <a href="index.html#pricing" class="header__nav-link">Pricing</a>
+        <a href="#" class="header__nav-link">Developer</a>
+        <a href="support.html" class="header__nav-link header__nav-link--active">Support</a>
+      </nav>
+      <a href="#" class="header__signin">Sign in</a>
+    </div>
+  </header>
+
+  <section class="support">
+    <div class="support__bg">
+      <div class="support__mesh"></div>
+      <div class="support__dots"></div>
+    </div>
+    <div class="container">
+      <div class="support__header">
+        <h1 class="support__title">Customer Support for<br>Seamless Mapping</h1>
+      </div>
+      <div class="support__cards">
+        <div class="support__card">
+          <div class="support__card-icon">
+            <div style="width:64px;height:64px;background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M16 4L4 11V21L16 28L28 21V11L16 4Z" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                <path d="M4 11L16 18M16 18L28 11M16 18V28" stroke="#FF4D6D" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <h2 class="support__card-title">Talk to our Sales team</h2>
+          <p class="support__card-desc">Discuss your requirements, learn about custom pricing, or request a demonstration from our team.</p>
+          <a href="mailto:sales@delhiverymaps.com" class="support__card-email">sales@delhiverymaps.com</a>
+          <a href="mailto:sales@delhiverymaps.com" class="support__card-btn">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1" stroke="#fff" stroke-width="1.2" fill="none"/><path d="M1 4L7 8L13 4" stroke="#fff" stroke-width="1.2" fill="none"/></svg>
+            Contact Sales
+          </a>
+        </div>
+        <div class="support__card">
+          <div class="support__card-icon">
+            <div style="width:64px;height:64px;background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:14px;display:flex;align-items:center;justify-content:center;">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M16 4L4 11V21L16 28L28 21V11L16 4Z" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                <path d="M4 11L16 18M16 18L28 11M16 18V28" stroke="#FF4D6D" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <h2 class="support__card-title">Technical Support</h2>
+          <p class="support__card-desc">Our support team is here to help you! If you have any questions or need assistance, please feel free to send us an email.</p>
+          <a href="mailto:support@delhiverymaps.com" class="support__card-email">support@delhiverymaps.com</a>
+          <a href="mailto:support@delhiverymaps.com" class="support__card-btn">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1" stroke="#fff" stroke-width="1.2" fill="none"/><path d="M1 4L7 8L13 4" stroke="#fff" stroke-width="1.2" fill="none"/></svg>
+            Email Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+
+<script>
+  // Page transition fade-in
+  document.documentElement.classList.add('page-loading');
+  window.addEventListener('DOMContentLoaded', function() {
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() { document.documentElement.classList.remove('page-loading'); });
+    });
+  });
+  // Fade-out on nav clicks
+  document.querySelectorAll('a[href]').forEach(function(a) {
+    var href = a.getAttribute('href');
+    if (href && !href.startsWith('#') && !href.startsWith('mailto')) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.documentElement.classList.add('page-transitioning');
+        setTimeout(function() { window.location.href = href; }, 250);
+      });
+    }
+  });
+</script>
