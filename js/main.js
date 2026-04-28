@@ -17,6 +17,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- Scroll Spy: Highlight nav based on visible section ---
+  const scrollSpySections = [
+    { id: 'hero', navText: 'Home' },
+    { id: 'showcase', navText: 'Product' },
+    { id: 'pricing', navText: 'Pricing' }
+  ];
+
+  function updateActiveNav() {
+    const scrollY = window.scrollY + 120; // offset for fixed header
+    let currentSection = 'hero';
+
+    for (let i = scrollSpySections.length - 1; i >= 0; i--) {
+      const section = document.getElementById(scrollSpySections[i].id);
+      if (section && section.offsetTop <= scrollY) {
+        currentSection = scrollSpySections[i].id;
+        break;
+      }
+    }
+
+    const matchingEntry = scrollSpySections.find(s => s.id === currentSection);
+    if (!matchingEntry) return;
+
+    navLinks.forEach(function(link) {
+      const href = link.getAttribute('href');
+      // Skip external page links (Developer, Support)
+      if (href && (href.includes('.html'))) return;
+
+      link.classList.remove('header__nav-link--active');
+
+      if (currentSection === 'hero' && (href === '#' || href === '#hero')) {
+        link.classList.add('header__nav-link--active');
+      } else if (href === '#' + currentSection) {
+        link.classList.add('header__nav-link--active');
+      }
+    });
+  }
+
+  // Only run scroll spy on the homepage (index.html)
+  if (!window.location.pathname.includes('developer') && !window.location.pathname.includes('support') && !window.location.pathname.includes('signin')) {
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
+  }
+
   // --- Custom Location Cursor ---
   const cursorPin = document.querySelector('.cursor-pin');
   if (cursorPin && window.matchMedia('(hover: hover)').matches) {
